@@ -1,0 +1,122 @@
+---
+import WidgetWrapper from "~/components/ui/WidgetWrapper.astro";
+import user from "~/assets/images/user.png";
+
+const {
+  reviewsData,
+  id,
+  isDark = false,
+  classes = {},
+  bg = await Astro.slots.render("bg"),
+} = Astro.props;
+
+// SAFE DATA
+const reviews = reviewsData?.review_sections ?? [];
+
+// STATE
+const isLoading = !reviewsData || reviews.length === 0;
+
+// FALLBACKS
+const FALLBACK_AUTHOR = "Anonymous";
+
+// SKELETON CONFIG
+const SKELETON_COUNT = 3;
+const skeletonItems = Array.from({ length: SKELETON_COUNT });
+---
+
+<WidgetWrapper
+  id={id}
+  isDark={isDark}
+  containerClass={`max-w-7xl mx-auto ${classes?.container ?? ""}`}
+  bg={bg}
+>
+  <section class="pb-16">
+
+    <!-- TITLE -->
+    <h2 class="text-3xl md:text-4xl lg:text-5xl text-secondary mb-10 text-gray-900 dark:text-white">
+      {reviewsData?.heading_title || "Customer Review"}
+    </h2>
+
+    <!-- ===================== -->
+    <!-- 🔄 SKELETON LOADER -->
+    <!-- ===================== -->
+    {isLoading && (
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full animate-pulse">
+        {skeletonItems.map(() => (
+          <div
+            class="
+              w-full
+              max-w-[412px]
+              mx-auto
+              min-h-[436px]
+              rounded-xl
+              overflow-hidden
+              bg-gray-200 dark:bg-slate-800
+              shadow-md
+              flex
+              flex-col
+            "
+          >
+            <!-- HEADER -->
+            <div class="bg-gray-300 dark:bg-slate-700 py-6 flex justify-center">
+              <div class="w-10 h-10 rounded-full bg-gray-400 dark:bg-slate-600"></div>
+            </div>
+
+            <!-- CONTENT -->
+            <div class="p-6 flex-1 flex flex-col justify-center space-y-3">
+              <div class="h-5 bg-gray-300 dark:bg-slate-700 rounded w-1/2 mx-auto"></div>
+              <div class="h-4 bg-gray-300 dark:bg-slate-700 rounded w-full"></div>
+              <div class="h-4 bg-gray-300 dark:bg-slate-700 rounded w-5/6 mx-auto"></div>
+            </div>
+          </div>
+        ))}
+      </div>
+    )}
+
+    <!-- ===================== -->
+    <!-- ✅ REAL DATA -->
+    <!-- ===================== -->
+    {!isLoading && reviews.length > 0 && (
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
+        {reviews.map((item) => (
+          <div
+            class="
+              w-full
+              max-w-[412px]
+              mx-auto
+              min-h-[436px]
+              rounded-xl
+              overflow-hidden
+              shadow-md
+              bg-white dark:bg-slate-900
+              flex
+              flex-col
+            "
+          >
+            <!-- TOP HEADER -->
+            <div class="bg-[#55372A] py-6 flex flex-col items-center">
+              <img
+                src={user.src}
+                alt="User avatar"
+                class="w-10 h-10 rounded-full"
+                loading="lazy"
+              />
+            </div>
+
+            <!-- CONTENT -->
+            <div class="p-6 text-center flex-1 flex flex-col justify-center">
+              <p class="text-secondary mb-2 text-lg md:text-xl lg:text-2xl font-medium">
+                {item?.author || FALLBACK_AUTHOR}
+              </p>
+
+              <p class="text-base md:text-lg lg:text-xl leading-relaxed text-gray-700 dark:text-gray-300">
+                {item?.comments ?? ""}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    )}
+
+  </section>
+</WidgetWrapper>

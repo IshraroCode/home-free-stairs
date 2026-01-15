@@ -1,0 +1,136 @@
+---
+import WidgetWrapper from '../ui/WidgetWrapper.astro';
+import aboutImage from '~/assets/images/aboutSection.png';
+
+const {
+  aboutusdata,
+  id,
+  isDark = false,
+  classes = {},
+  bg = await Astro.slots.render('bg'),
+  linkHref = '/about',
+} = Astro.props;
+
+// STATE
+const isLoading = !aboutusdata;
+
+// FALLBACKS
+const TITLE_FALLBACK = 'About Us';
+---
+
+<WidgetWrapper
+  id={id}
+  isDark={isDark}
+  containerClass={`max-w-7xl mx-auto ${classes?.container ?? ''}`}
+  bg={bg}
+>
+  <section class="py-6 md:py-4 w-full lg:min-h-[602px]">
+    <div class="container mx-auto px-4">
+
+      <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-start">
+
+        <!-- ======================= -->
+        <!-- LEFT: CONTENT -->
+        <!-- ======================= -->
+        <div class="order-1 space-y-4">
+
+          <!-- 🔄 SKELETON -->
+          {isLoading && (
+            <div class="animate-pulse space-y-4">
+              <div class="h-10 bg-gray-300 dark:bg-slate-700 rounded w-3/4"></div>
+              <div class="h-4 bg-gray-300 dark:bg-slate-700 rounded w-full"></div>
+              <div class="h-4 bg-gray-300 dark:bg-slate-700 rounded w-5/6"></div>
+              <div class="h-4 bg-gray-300 dark:bg-slate-700 rounded w-2/3"></div>
+              <div class="h-10 bg-gray-300 dark:bg-slate-700 rounded-full w-36 mt-4"></div>
+            </div>
+          )}
+
+          <!-- ✅ REAL CONTENT -->
+          {!isLoading && (
+            <>
+              {aboutusdata?.title && (
+                <h2
+                  class="
+                    text-3xl md:text-4xl lg:text-5xl
+                    dark:text-primary
+                    mb-4 leading-tight mt-4
+                  "
+                >
+                  {aboutusdata.title}
+                </h2>
+              )}
+
+              {aboutusdata?.about_us_description && (
+                <p
+                  class="
+                    text-lg md:text-xl
+                    text-gray-700 dark:text-slate-300
+                    max-w-lg leading-relaxed
+                  "
+                  set:html={aboutusdata.about_us_description}
+                />
+              )}
+
+              {linkHref && (
+                <a
+                  href={linkHref}
+                  class="
+                    inline-block mt-2 px-6 py-3 bg-btn text-white font-semibold
+                    hover:bg-secondary transition-colors rounded-full
+                    focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
+                  "
+                >
+                  Read More
+                </a>
+              )}
+            </>
+          )}
+
+        </div>
+
+        <!-- ======================= -->
+        <!-- RIGHT: IMAGE -->
+        <!-- ======================= -->
+        <div class="order-2 relative flex justify-center lg:justify-end">
+
+          <!-- 🔄 IMAGE SKELETON -->
+          {isLoading && (
+            <div
+              class="
+                w-full lg:w-[602px] lg:h-[602px]
+                aspect-square
+                bg-gray-300 dark:bg-slate-800
+                rounded
+                animate-pulse
+              "
+            ></div>
+          )}
+
+          <!-- ✅ REAL IMAGE -->
+          {!isLoading && (
+            <div
+              class="
+                relative
+                overflow-hidden
+                border border-gray-200 dark:border-gray-700
+                bg-white dark:bg-slate-900
+                shadow-lg
+              "
+            >
+              <img
+                src={aboutImage.src}
+                alt="Professional stairlift installation on wooden stairs in a modern home"
+                class="w-full h-auto lg:w-[602px] lg:h-[602px] object-cover"
+                loading="lazy"
+              />
+
+              <div class="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent dark:from-black/30"></div>
+            </div>
+          )}
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+</WidgetWrapper>

@@ -1,0 +1,223 @@
+---
+import WidgetWrapper from "../ui/WidgetWrapper.astro";
+
+const {
+  title = '',
+  subtitle = '',
+  tagline = '',
+  id,
+  isDark = true, // Default to dark for this theme
+  classes = {},
+  bg = await Astro.slots.render('bg'),
+} = Astro.props;
+
+// Contact info - can be made dynamic via props
+const contactInfo = {
+  email: "info@legacycontracting.com",
+  phone: "(555) 123-4567"
+};
+---
+
+<WidgetWrapper
+  id={id}
+  isDark={isDark}
+  containerClass={`max-w-7xl mx-auto ${classes?.container ?? ''}`}
+  sectionBgClass="bg-btn"
+>
+
+<section class="py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+  <!-- Dark gradient background overlay for depth -->
+  <div class="absolute inset-0 "></div>
+  <div class="relative z-10">
+    <!-- Grid: Left content, Right form -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start max-w-6xl mx-auto">
+      
+      <!-- Left Side: Booking Consultation -->
+      <div class="space-y-6 lg:space-y-8 text-white">
+        <!-- Main Heading -->
+        <div class="space-y-4">
+          <h2 class="text-4xl sm:text-5xl lg:text-7xl font-black tracking-tight leading-tight">
+            Book a<br class="hidden sm:inline" />
+            <span class="text-white bg-clip-text text-transparent">consultation</span><br />
+            to discuss<br />
+            your needs.
+          </h2>
+          <p class="text-xl text-slate-300 leading-relaxed max-w-md">
+            Share your needs and we'll help you<br class="hidden md:inline" />
+            choose the right service.
+          </p>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="space-y-4 pt-6">
+          <div class="flex flex-col md:flex-row items-center md:items-start gap-3">
+
+
+
+            <div class="flex-shrink-0 w-10 h-10 bg-[#C89945] rounded-full flex items-center justify-center">
+              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <div class="w-full space-y-1">
+              <p class="text-sm font-medium text-slate-300">E-mail:</p>
+              <p class="text-base font-semibold truncate">{contactInfo.email}</p>
+            </div>
+          </div>
+          <div class="flex flex-col md:flex-row items-center md:items-start gap-3">
+
+
+            <div class="flex-shrink-0 w-10 h-10 bg-[#C89945] rounded-full flex items-center justify-center">
+              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+              </svg>
+            </div>
+            <div class="w-full space-y-1">
+              <p class="text-sm font-medium text-slate-300">Ph. no:</p>
+              <p class="text-base font-semibold truncate">{contactInfo.phone}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Side: Contact Form -->
+      <div class="space-y-6">
+        <!-- Subtitle -->
+        <div class="space-y-3">
+          <h3 class=" text-3xl md:text-4xl lg:text-5xl  text-white">Get in touch with us.</h3>
+          <p class="text-slate-300 leading-relaxed max-w-md">
+            At Legacy Contracting Inc., there is no job too big or too small. We look forward to discussing your renovation needs.
+          </p>
+        </div>
+
+        <!-- Form -->
+        <form id="contact-form" class="space-y-5">
+          <div>
+            <label for="name" class="block text-sm font-medium text-slate-300 mb-2">Name</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              required
+              class="w-full px-4 py-3 bg-transparent border border-white rounded-lg text-white placeholder-white focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200"
+              placeholder="Your Name"
+            />
+          </div>
+          <div>
+            <label for="email" class="block text-sm font-medium text-slate-300 mb-2">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              class="w-full px-4 py-3  bg-transparent border border-white rounded-lg text-white placeholder-white focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200"
+              placeholder="Your Email"
+            />
+          </div>
+          <div>
+            <label for="phone" class="block text-sm font-medium text-slate-300 mb-2">Phone Number</label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              required
+              class="w-full px-4 py-3  bg-transparent border border-white rounded-lg text-white placeholder-white focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200"
+              placeholder="Your Ph. No."
+            />
+          </div>
+          <div>
+            <label for="message" class="block text-sm font-medium text-slate-300 mb-2">Message</label>
+            <textarea
+              id="message"
+              name="message"
+              rows="4"
+              required
+              class="w-full px-4 py-3 bg-transparent border rounded-lg text-white placeholder-white focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200 resize-none"
+              placeholder="Your Message"
+            ></textarea>
+          </div>
+          <button
+            type="submit"
+            class="w-full bg-[#C89945] text-slate-900 font-bold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200 uppercase tracking-wide text-sm"
+          >
+            Submit
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+</WidgetWrapper>
+<!-- ✅ SUCCESS MODAL -->
+<div id="success-modal"
+  class="fixed inset-0 bg-black/60 hidden items-center justify-center z-50">
+  <div class="bg-white rounded-2xl p-8 text-center max-w-sm w-full animate-scaleIn">
+    
+    <!-- CHECK ICON -->
+    <div class="mx-auto w-16 h-16 rounded-full bg-green-500 flex items-center justify-center mb-4">
+      <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+          d="M5 13l4 4L19 7" />
+      </svg>
+    </div>
+
+    <h3 class="text-2xl font-bold mb-2">Message Sent!</h3>
+    <p class="text-gray-600 mb-6">
+      Thank you for contacting us. We’ll get back to you shortly.
+    </p>
+
+    <button id="close-modal"
+      class="px-6 py-2 bg-[#C89945] text-white rounded-lg font-semibold">
+      Close
+    </button>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const form:any = document.getElementById("contact-form");
+    const modal:any = document.getElementById("success-modal");
+    const closeBtn = document.getElementById("close-modal");
+
+    form?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const payload = Object.fromEntries(new FormData(form));
+
+      try {
+        const res = await fetch("http://0.0.0.0:8055/items/ContactUs/", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+
+        if (!res.ok) throw new Error("Failed");
+
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+        form.reset();
+      } catch (err) {
+        alert("Something went wrong. Please try again.");
+      }
+    });
+
+    closeBtn?.addEventListener("click", () => {
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+    });
+  });
+</script>
+
+<style>
+@keyframes scaleIn {
+  from { transform: scale(.8); opacity: 0 }
+  to { transform: scale(1); opacity: 1 }
+}
+.animate-scaleIn {
+  animation: scaleIn .25s ease-out;
+}
+</style>

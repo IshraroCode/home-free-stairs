@@ -1,0 +1,89 @@
+---
+import ConactSection from '~/components/HomePage/ConactSection.astro';
+import OurServices from '~/components/HomePage/OurServices.astro';
+import Layout from '~/layouts/PageLayout.astro';
+import aboutImage from '~/assets/images/aboutSection.png';
+
+const metadata = {
+  title: 'About us',
+};
+---
+
+<Layout metadata={metadata}>
+  <!-- Header Section with Brown Background -->
+  <section class="relative bg-secondary text-white h-[532px]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4 mt-5">About Us</h1>
+      <p class="text-xl max-w-3xl mx-auto">
+        Expert home stairlift services focused on safety, comfort, and reliable support.
+      </p>
+    </div>
+    <!-- Centered curved bottom using SVG -->
+    <div class="absolute bottom-0 w-full overflow-hidden">
+      <svg
+        class="relative block w-full h-20"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 1440 120"
+        preserveAspectRatio="none"
+      >
+        <path
+          fill="#ffffff"
+          d="M0,0 C720,50 720,50 1440,0 L1440,120 L0,120 Z"
+        />
+      </svg>
+    </div>
+    
+    
+  </section>
+  
+
+  <!-- About Content Section -->
+  <section class="bg-white py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <!-- Left: Text Content -->
+        <div class="space-y-6">
+          <div class="space-y-4">
+            <button class="inline-flex items-center px-4 py-1 rounded-full text-sm font-medium text-[#6B4B3A] border border-[#6B4B3A] mb-4">
+              About us
+            </button>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900">About us</h2>
+            <p class="text-lg text-gray-600 leading-relaxed">
+              We specialize in professional home stairlift services, offering expert assessment, installation, and long-term support to improve safe and comfortable movement at home. Our experienced team works closely with homeowners to understand their needs and provide reliable, tailored solutions.
+            </p>
+            <p class="text-lg text-gray-600 leading-relaxed">
+              From the initial consultation to ongoing maintenance, we ensure every service is delivered with care, safety, and attention to detail, giving you confidence and peace of mind at every step.
+            </p>
+          </div>
+
+          <!-- Stats Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 pt-8 border-t border-gray-200">
+            <div class="text-center">
+              <div class="text-4xl font-bold text-[#6B4B3A] mb-2">100%</div>
+              <div class="text-gray-700 font-medium">Safety Checked Services</div>
+            </div>
+            <div class="text-center">
+              <div class="text-4xl font-bold text-[#6B4B3A] mb-2">24/7</div>
+              <div class="text-gray-700 font-medium">Support Availability</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Image -->
+        <div class="relative">
+          <img
+            src={aboutImage.src}
+            alt="Home stairlift"
+            class="w-full h-auto rounded-lg shadow-lg"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <OurServices />
+
+  <!-- Contact Section -->
+  <ConactSection />
+</Layout>

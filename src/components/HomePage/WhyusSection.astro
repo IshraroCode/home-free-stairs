@@ -1,0 +1,163 @@
+---
+import WidgetWrapper from '../ui/WidgetWrapper.astro';
+
+const {
+  whyusdata,
+  id,
+  isDark = false,
+  classes = {},
+  bg = await Astro.slots.render('bg'),
+} = Astro.props;
+
+// DATA
+const sections = whyusdata?.sections ?? [];
+
+// FALLBACK ICON
+const FALLBACK_ICON = 'help';
+
+// SKELETON CONFIG
+const SKELETON_COUNT = 5;
+
+// SPLIT LOGIC (REAL DATA)
+const mid = Math.ceil(sections.length / 2);
+const topRow = sections.slice(0, mid);
+const bottomRow = sections.slice(mid);
+
+// SPLIT LOGIC (SKELETON)
+const skeletonMid = Math.ceil(SKELETON_COUNT / 2);
+const skeletonTop = Array.from({ length: skeletonMid });
+const skeletonBottom = Array.from({ length: SKELETON_COUNT - skeletonMid });
+
+// STATE
+const isLoading = !whyusdata || sections.length === 0;
+---
+
+<WidgetWrapper
+  id={id}
+  isDark={isDark}
+  containerClass={`max-w-7xl mx-auto ${classes?.container ?? ''}`}
+  bg={bg}
+>
+  <section class="py-6 bg-white dark:bg-slate-900">
+    <div class="container mx-auto px-4 space-y-8">
+
+      <!-- TITLE -->
+      <h2 class="text-3xl md:text-4xl lg:text-5xl text-secondary dark:text-white">
+        {whyusdata?.title || 'Why Us?'}
+      </h2>
+
+      <!-- ==================== -->
+      <!-- 🔄 SKELETON LOADER -->
+      <!-- ==================== -->
+      {isLoading && (
+        <div class="space-y-6 animate-pulse">
+
+          <!-- TOP ROW -->
+          <div
+            class="grid gap-4
+                   grid-cols-1
+                   sm:grid-cols-2
+                   lg:grid-cols-[repeat(var(--cols),minmax(0,1fr))]"
+            style={`--cols: ${skeletonTop.length};`}
+          >
+            {skeletonTop.map(() => (
+              <div class="bg-gray-200 dark:bg-slate-800 p-6 rounded-lg h-full">
+                <div class="w-12 h-12 bg-gray-300 dark:bg-slate-700 rounded mb-4"></div>
+                <div class="h-6 bg-gray-300 dark:bg-slate-700 rounded w-3/4 mb-3"></div>
+                <div class="h-4 bg-gray-300 dark:bg-slate-700 rounded w-full mb-2"></div>
+                <div class="h-4 bg-gray-300 dark:bg-slate-700 rounded w-5/6"></div>
+              </div>
+            ))}
+          </div>
+
+          <!-- BOTTOM ROW -->
+          <div
+            class="grid gap-4
+                   grid-cols-1
+                   sm:grid-cols-2
+                   lg:grid-cols-[repeat(var(--cols),minmax(0,1fr))]"
+            style={`--cols: ${skeletonBottom.length};`}
+          >
+            {skeletonBottom.map(() => (
+              <div class="bg-gray-200 dark:bg-slate-800 p-6 rounded-lg h-full">
+                <div class="w-12 h-12 bg-gray-300 dark:bg-slate-700 rounded mb-4"></div>
+                <div class="h-6 bg-gray-300 dark:bg-slate-700 rounded w-3/4 mb-3"></div>
+                <div class="h-4 bg-gray-300 dark:bg-slate-700 rounded w-full mb-2"></div>
+                <div class="h-4 bg-gray-300 dark:bg-slate-700 rounded w-5/6"></div>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      )}
+
+      <!-- ==================== -->
+      <!-- ✅ REAL CONTENT -->
+      <!-- ==================== -->
+      {!isLoading && (
+        <div class="space-y-6">
+
+          <!-- TOP ROW -->
+          {topRow.length > 0 && (
+            <div
+              class="grid gap-4
+                     grid-cols-1
+                     sm:grid-cols-2
+                     lg:grid-cols-[repeat(var(--cols),minmax(0,1fr))]"
+              style={`--cols: ${topRow.length};`}
+            >
+              {topRow.map((item) => (
+                <div class="bg-gray-100 dark:bg-slate-800 p-6 rounded-lg h-full">
+                  <div class="w-12 h-12 flex items-center justify-center mb-4">
+                    <span class="material-symbols-rounded text-primary text-2xl leading-none">
+                      {item?.icon || FALLBACK_ICON}
+                    </span>
+                  </div>
+
+                  <h3 class="text-xl md:text-2xl lg:text-[28px] dark:text-white mb-3">
+                    {item?.title ?? ''}
+                  </h3>
+
+                  <p class="text-lg md:text-xl lg:text-[24px] leading-relaxed">
+                    {item?.descriptions ?? ''}
+                  </p>
+                </div>
+              ))}
+            </div>
+          )}
+
+          <!-- BOTTOM ROW -->
+          {bottomRow.length > 0 && (
+            <div
+              class="grid gap-4
+                     grid-cols-1
+                     sm:grid-cols-2
+                     lg:grid-cols-[repeat(var(--cols),minmax(0,1fr))]"
+              style={`--cols: ${bottomRow.length};`}
+            >
+              {bottomRow.map((item) => (
+                <div class="bg-gray-100 dark:bg-slate-800 p-6 rounded-lg h-full">
+                  <div class="w-12 h-12 flex items-center justify-center mb-4">
+                    <span class="material-symbols-rounded text-primary text-2xl leading-none">
+                      {item?.icon || FALLBACK_ICON}
+                    </span>
+                  </div>
+
+                  <h3 class="text-xl md:text-2xl lg:text-[28px] dark:text-white mb-3">
+                    {item?.title ?? ''}
+                  </h3>
+
+                  <p class="text-lg md:text-xl lg:text-[24px] leading-relaxed">
+                    {item?.descriptions ?? ''}
+                  </p>
+                </div>
+              ))}
+            </div>
+          )}
+
+        </div>
+      )}
+
+    </div>
+  </section>
+</WidgetWrapper>

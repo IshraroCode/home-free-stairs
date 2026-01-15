@@ -1,0 +1,37 @@
+---
+import user from "~/assets/images/hero-image.png";
+
+const {
+  title = "Our Services",
+  subtitle = "Expert stairlift services to support safe and comfortable movement at home.",
+  backgroundImage,
+  id,
+} = Astro.props;
+---
+
+<section
+  {...id ? { id } : {}}
+  class="relative w-full h-[70vh] md:h-[80vh] flex items-center justify-center"
+>
+  <!-- Background Image -->
+  <img
+    src={backgroundImage || user.src}
+    alt="Stairlift service assistance"
+    class="absolute inset-0 w-full h-full object-cover z-0"
+    loading="eager"
+  />
+
+  <!-- Dark Overlay -->
+  <div class="absolute inset-0 bg-black/50 z-10"></div>
+
+  <!-- Content -->
+  <div class="relative z-20 text-center px-4 max-w-3xl">
+    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
+      {title}
+    </h1>
+
+    <p class="text-lg md:text-xl text-white/90 leading-relaxed">
+      {subtitle}
+    </p>
+  </div>
+</section>

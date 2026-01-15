@@ -1,0 +1,55 @@
+@import './fonts.css';
+@import 'material-symbols';
+
+/* Global default text */
+body {
+  font-family: 'Qurova', ui-sans-serif, system-ui;
+  font-weight: 400;
+}
+
+/* Headings */
+:where(h1, h2, h3, h4, h5, h6) {
+  font-family: 'Qurova', ui-sans-serif, system-ui;
+  font-weight: 400;
+}
+
+/* Paragraphs */
+:where(p) {
+  font-family: 'Qurova', ui-sans-serif, system-ui;
+  font-weight: 400;
+}
+
+/* Links */
+:where(a) {
+  font-family: 'Qurova', ui-sans-serif, system-ui;
+  font-weight: 400;
+}
+:root {
+  /* Brand Colors */
+  --aw-color-primary: #C89945;
+  --aw-color-secondary: #55372A;
+
+  /* Button Colors */
+  --aw-color-btn: #55372A;
+
+  /* Text Colors (optional but recommended) */
+  --aw-color-text-default: #1f2937; /* gray-800 */
+  --aw-color-text-muted: #6b7280;   /* gray-500 */
+}
+.material-symbols-rounded{
+  font-family: "Material Symbols Rounded";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 2rem;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "liga";
+}

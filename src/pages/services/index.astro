@@ -1,0 +1,42 @@
+---
+import ConactSection from '~/components/HomePage/ConactSection.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+import Content from '~/components/widgets/Content.astro';
+import Features2 from '~/components/widgets/Features2.astro';
+import Hero from '~/components/widgets/Hero.astro';
+import ServicesAll from '~/components/widgets/ServicesAll.astro';
+import Testimonials from '~/components/widgets/Testimonials.astro';
+import Layout from '~/layouts/PageLayout.astro';
+
+const metadata = {
+  title: 'Our Services – Expert Stairlift Solutions', // Proper page title for SEO
+  description: 'Explore our range of stairlift services, including home assessments, installation, and safety evaluations to ensure safe and comfortable mobility at home.',
+};
+---
+
+<Layout metadata={metadata}>
+  <!-- Hero Section -->
+  <Hero
+    tagline="Our Services"
+    title="Expert Stairlift Services"
+    subtitle="We provide professional home assessments and stairlift solutions tailored to your needs."
+    actions={[
+      { variant: 'primary', target: '_blank', text: 'Start Exploring', href: '/' },
+    ]}
+    image={{
+      src: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80',
+      alt: 'Home Stairlift Services',
+    }}
+  />
+
+  <!-- What We Offer Section -->
+  <section class="max-w-7xl mx-auto px-4 py-12">
+    <h2 class="text-4xl font-bold text-secondary mb-7">
+      What We Offer
+    </h2>
+    <ServicesAll/>
+  </section>
+
+  <!-- Contact / CTA Section -->
+  <ConactSection/>
+</Layout>

@@ -1,0 +1,131 @@
+---
+import WidgetWrapper from "../ui/WidgetWrapper.astro";
+
+const {
+  title = "What We Offer",
+  subtitle = "",
+  id,
+  isDark = false,
+  classes = {},
+} = Astro.props;
+
+const services = [
+  {
+    title: "Home Stairlift Assessment",
+    desc: "We visit your home to assess your staircase and understand your mobility needs before recommending the right solution.",
+    icon: "home",
+  },
+  {
+    title: "Stairlift Consultation",
+    desc: "Our experts guide you through suitable stairlift options and explain the best approach for your home.",
+    icon: "chat",
+  },
+  {
+    title: "Professional Stairlift Installation",
+    desc: "Professional installation ensuring safety, precision, and long-term reliability.",
+    icon: "build",
+  },
+  {
+    title: "Home Stairlift Assessment",
+    desc: "We visit your home to assess your staircase and understand your mobility needs before recommending the right solution.",
+    icon: "home",
+  },
+  {
+    title: "Stairlift Consultation",
+    desc: "Our experts guide you through suitable stairlift options and explain the best approach for your home.",
+    icon: "chat",
+  },
+  {
+    title: "Professional Stairlift Installation",
+    desc: "Professional installation ensuring safety, precision, and long-term reliability.",
+    icon: "build",
+  },
+];
+---
+
+<WidgetWrapper
+  id={id}
+  isDark={isDark}
+  containerClass={`max-w-7xl mx-auto ${classes?.container ?? ""}`}
+>
+<section class="py-24">
+
+  <div class="max-w-7xl mx-auto px-4">
+  
+    <!-- GRID -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-24">
+      
+      {services.map((service) => (
+        <div class="relative bg-[#5B3A2B] rounded-2xl pt-28 pb-10 px-8 text-center overflow-visible shadow-lg">
+
+          <!-- ICON CIRCLE -->
+          <div
+            class="absolute -top-[69px] left-1/2 -translate-x-1/2
+                   w-[138px] h-[138px]
+                   bg-white rounded-full
+                   flex items-center justify-center
+                   ring-1 ring-black/5
+                   shadow-[0_12px_30px_rgba(0,0,0,0.18)]
+                   z-20"
+          >
+            <span
+              class="material-symbols-rounded
+                     text-primary
+                     text-[82px]
+                     leading-none
+                     flex items-center justify-center"
+            >
+              {service.icon}
+            </span>
+          </div>
+
+          <!-- CONTENT -->
+          <h3 class="text-white text-xl font-semibold mb-4">
+            {service.title}
+          </h3>
+
+          <p class="text-white/80 text-sm leading-relaxed mb-8">
+            {service.desc}
+          </p>
+
+          <!-- ARROW -->
+          <a
+  href={`/services/home-stairlift-assessment`}
+  class="w-12 h-12 mx-auto
+         bg-white rounded-full
+         flex items-center justify-center
+         shadow-md
+         transition hover:scale-110 hover:bg-primary"
+>
+  <span class="material-symbols-rounded text-secondary text-lg">
+    arrow_forward
+  </span>
+</a>
+
+
+        </div>
+      ))}
+
+    </div>
+  </div>
+</section>
+</WidgetWrapper>
+
+<style>
+  .material-symbols-rounded {
+    font-size: 3rem; /* desktop */
+  }
+  
+  @media (max-width: 1024px) {
+    .material-symbols-rounded {
+      font-size: 2.5rem;
+    }
+  }
+  
+  @media (max-width: 640px) {
+    .material-symbols-rounded {
+      font-size: 2rem;
+    }
+  }
+  </style>
+  

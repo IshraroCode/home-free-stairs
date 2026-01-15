@@ -1,0 +1,88 @@
+---
+import { Icon } from 'astro-icon/components';
+import { twMerge } from 'tailwind-merge';
+import type { CallToAction } from '~/types';
+
+/* ---------------------------------------
+   Props Type
+---------------------------------------- */
+interface ButtonProps extends CallToAction {
+  size?: 'sm' | 'md' | 'lg';
+}
+
+/* ---------------------------------------
+   Props
+---------------------------------------- */
+const {
+  variant = 'secondary',
+  size = 'md',
+  target,
+  text = Astro.slots.render('default'),
+  icon = '',
+  class: className = '',
+  type,
+  ...rest
+} = Astro.props as ButtonProps;
+
+/* ---------------------------------------
+   Variants
+---------------------------------------- */
+const variants: Record<string, string> = {
+  primary:
+    'inline-flex items-center justify-center rounded-md bg-primary text-white font-semibold transition-colors duration-200 hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2',
+  secondary:
+    'inline-flex items-center justify-center rounded-md bg-gray-100 text-gray-900 font-semibold transition-colors duration-200 hover:bg-gray-200 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700',
+  tertiary:
+    'inline-flex items-center justify-center rounded-md border border-gray-300 text-gray-900 font-semibold transition-colors duration-200 hover:bg-gray-50 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800',
+  link: 'cursor-pointer text-primary hover:underline',
+};
+
+/* ---------------------------------------
+   Sizes
+---------------------------------------- */
+const sizes: Record<'sm' | 'md' | 'lg', string> = {
+  sm: 'px-4 py-2 text-sm',
+  md: 'px-6 py-3 text-base',
+  lg: 'px-8 py-4 text-lg',
+};
+---
+
+{
+  type === 'button' || type === 'submit' || type === 'reset' ? (
+    <button
+      type={type}
+      class={twMerge(
+        variants[variant] || '',
+        sizes[size],
+        className
+      )}
+      {...rest}
+    >
+      <Fragment set:html={text} />
+      {icon && (
+        <Icon
+          name={icon}
+          class="ml-2 h-5 w-5 inline-block"
+        />
+      )}
+    </button>
+  ) : (
+    <a
+      class={twMerge(
+        variants[variant] || '',
+        sizes[size],
+        className
+      )}
+      {...(target ? { target, rel: 'noopener noreferrer' } : {})}
+      {...rest}
+    >
+      <Fragment set:html={text} />
+      {icon && (
+        <Icon
+          name={icon}
+          class="ml-2 h-5 w-5 inline-block"
+        />
+      )}
+    </a>
+  )
+}

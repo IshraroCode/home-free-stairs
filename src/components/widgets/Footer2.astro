@@ -1,0 +1,93 @@
+---
+import WidgetWrapper from "../ui/WidgetWrapper.astro";
+import Logo from '~/components/Logo.astro';
+
+
+const {
+  id,
+  isDark = true,
+  classes = {},
+} = Astro.props;
+---
+
+<WidgetWrapper
+  id={id}
+  isDark={false}
+  containerClass=" mx-auto"
+  sectionBgClass="bg-[rgba(0,0,0,0.06)]"
+>
+<footer class="py-12 w-full lg:min-h-[578px]">
+
+    <div class="px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+
+      <!-- WHAT WE DO -->
+      <div>
+        <h4 class="text-xl md:text-2xl lg:text-3xl font-bold tracking-wider text-gray-400 uppercase mb-4">
+          What We Do
+        </h4>
+        <ul class="text-lg md:text-xl lg:text-[24px]          space-y-3 text-gray-800 ">
+          <li>Stairlift Assessment</li>
+          <li>Stairlift Consultation</li>
+          <li>Stairlift Installation</li>
+          <li>User Guidance</li>
+        </ul>
+      </div>
+
+      <!-- ABOUT US -->
+      <div>
+        <h4 class="text-xl md:text-2xl lg:text-3xl font-bold  tracking-wider text-gray-400 uppercase mb-4">
+          About Us
+        </h4>
+        <ul class=" text-lg md:text-xl lg:text-[24px]  space-y-3 text-gray-800 ">
+          <li>About HomeFree Stairlift</li>
+        </ul>
+      </div>
+
+      <!-- SERVICE -->
+      <div>
+        <h4 class="text-xl md:text-2xl lg:text-3xl font-bold  tracking-wider text-gray-400 uppercase mb-4">
+          Service
+        </h4>
+        <ul class="text-lg md:text-xl lg:text-[24px]  space-y-3 text-gray-800 ">
+          <li>Stairlift Assessment</li>
+          <li>Stairlift Consultation</li>
+          <li>Stairlift Installation</li>
+          <li>User Guidance</li>
+        </ul>
+      </div>
+
+      <!-- LEGALS -->
+      <div>
+        <h4 class="text-xl md:text-2xl lg:text-3xl font-bold  tracking-wider text-gray-400 uppercase mb-4">
+          Legals
+        </h4>
+        <ul class="text-lg md:text-xl lg:text-[24px]     space-y-3 text-gray-800 ">
+          <li>Privacy Policy</li>
+          <li>Terms & Conditions</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Bottom Section -->
+    <div class="mt-12  flex flex-col md:flex-row items-center justify-between gap-6">
+
+      <!-- Logo -->
+      <div class="flex items-center gap-2">
+        <div class="  rounded-md flex items-center justify-center">
+          <!-- Icon placeholder -->
+        <Logo />
+        </div>
+        
+      </div>
+
+      <!-- Contact -->
+      <div class="text-sm text-gray-900">
+        Call now, Toll Free:
+        <span class="font-semibold">0000000000</span>
+      </div>
+      
+
+    </div>
+  </footer>
+</WidgetWrapper>
