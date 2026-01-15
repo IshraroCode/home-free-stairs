@@ -1,0 +1,97 @@
+---
+import AppLayout from "~/layouts/PageLayout.astro";
+import WidgetWrapper from "~/components/ui/WidgetWrapper.astro";
+import stairliftImg from "~/assets/images/aboutSection.png";
+import ServicesAll from "~/components/widgets/ServicesAll.astro";
+import ConactSection from "~/components/HomePage/ConactSection.astro";
+
+export const prerender = true;
+
+/* 👇 REQUIRED FOR DYNAMIC ROUTES */
+export async function getStaticPaths() {
+  return [
+    {
+      params: { slug: "home-stairlift-assessment" },
+      props: {
+        title: "Home Stairlift Assessment",
+      },
+    },
+    {
+      params: { slug: "straight-stairlifts" },
+      props: {
+        title: "Straight Stairlifts",
+      },
+    },
+  ];
+}
+
+/* Props from getStaticPaths */
+const { title } = Astro.props;
+
+const points = [
+  "In-home staircase measurement and evaluation",
+  "Assessment of user mobility and comfort needs",
+  "Suitability check for different stairlift options",
+  "Safety and space assessment",
+  "Expert recommendations tailored to your home",
+];
+---
+
+
+<AppLayout>
+  <WidgetWrapper>
+    <section class="mt-40">
+      <!-- Left Image -->
+      <div class="flex flex-col lg:flex-row  items-center">
+        <!-- Left Image -->
+        <div class="w-full lg:w-1/2 flex justify-center lg:justify-start mb-8 lg:mb-0">
+          <img
+            src={stairliftImg.src}
+            alt="Home Stairlift Assessment"
+            class="w-full max-w-md h-auto object-cover "
+          />
+        </div>
+      
+        <!-- Right Content -->
+        <div class="w-full lg:w-1/2 flex flex-col">
+          <h2 class="text-4xl font-semibold mb-4">Home Stairlift Assessment</h2>
+          <p class="text-gray-600 mb-6">
+            A professional home visit to assess your staircase and mobility needs before recommending the right stairlift solution.
+          </p>
+      
+          <ul class="space-y-4 mb-8">
+            {points.map(point => (
+              <li class="flex items-start gap-3">
+                {/* <span class="mt-1 h-3 w-3 bg-amber-600 rounded-full flex-shrink-0"></span> */}
+                <span class="text-gray-700">{point}</span>
+              </li>
+            ))}
+          </ul>
+      
+          <!-- Buttons -->
+          <div class="flex flex-col gap-4">
+            <button class="bg-secondary text-white py-3 px-6 rounded  transition">
+              Schedule Your Assessment
+            </button>
+            <button class="border border-secondary text-secondary hover:text-white py-3 px-6 rounded hover:bg-secondary transition">
+              Request a Call Back
+            </button>
+          </div>
+        </div>
+      </div>
+      
+
+    </section>
+
+    <!-- All Services Section -->
+    <div class="mt-32 ">
+      <h2 class="text-4xl font-bold text-secondary mb-10">
+        Our All Services
+      </h2>
+      <ServicesAll />
+    </div>
+
+    <!-- Contact Section -->
+    <ConactSection />
+  </WidgetWrapper>
+</AppLayout>

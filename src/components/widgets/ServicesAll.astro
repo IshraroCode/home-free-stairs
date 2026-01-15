@@ -59,25 +59,39 @@ const services = [
         <div class="relative bg-[#5B3A2B] rounded-2xl pt-28 pb-10 px-8 text-center overflow-visible shadow-lg">
 
           <!-- ICON CIRCLE -->
-          <div
-            class="absolute -top-[69px] left-1/2 -translate-x-1/2
-                   w-[138px] h-[138px]
-                   bg-white rounded-full
-                   flex items-center justify-center
-                   ring-1 ring-black/5
-                   shadow-[0_12px_30px_rgba(0,0,0,0.18)]
-                   z-20"
-          >
-            <span
-              class="material-symbols-rounded
-                     text-primary
-                     text-[82px]
-                     leading-none
-                     flex items-center justify-center"
-            >
-              {service.icon}
-            </span>
-          </div>
+         <div
+  class="
+    absolute -top-[48px] sm:-top-[56px] md:-top-[64px] lg:-top-[69px]
+    left-1/2 -translate-x-1/2
+
+    w-20 h-20
+    sm:w-24 sm:h-24
+    md:w-28 md:h-28
+    lg:w-[138px] lg:h-[138px]
+
+    bg-white rounded-full
+    flex items-center justify-center
+    ring-1 ring-black/5
+    shadow-[0_12px_30px_rgba(0,0,0,0.18)]
+    z-20
+  "
+>
+  <span
+    class="
+      material-symbols-rounded
+      text-primary
+      text-4xl
+      sm:text-5xl
+      md:text-6xl
+      lg:text-[82px]
+      leading-none
+      flex items-center justify-center
+    "
+  >
+    {service.icon}
+  </span>
+</div>
+
 
           <!-- CONTENT -->
           <h3 class="text-white text-xl font-semibold mb-4">

@@ -7,6 +7,38 @@ import aboutImage from '~/assets/images/aboutSection.png';
 const metadata = {
   title: 'About us',
 };
+const servicesData ={
+    our_service_home: {
+    title: "What do we do ?",
+    slug: "home-stairlift-assessment",
+    services: [
+      {
+        service_name_: "Home Stairlift Assessment",
+        service_description:
+          "We visit your home to assess your staircase and understand your mobility needs before recommending the right solution.",
+        icon: "home_work",
+      },
+      {
+        service_name_: "Stairlift Consultation",
+        service_description:
+          "Our experts guide you through suitable stairlift options and explain the best approach for your home.",
+        icon: "accessible",
+      },
+      {
+        service_name_: "Professional Stairlift Installation",
+        service_description:
+          "Our experts install your stairlift safely and efficiently with minimal disruption.",
+        icon: "stairs",
+      },
+      {
+        service_name_: "Safety Checks & User Guidance",
+        service_description:
+          "We perform thorough safety checks and show you how to use the stairlift with confidence.",
+        icon: "safety_check",
+      },
+    ],
+  },
+}
 ---
 
 <Layout metadata={metadata}>
@@ -82,7 +114,7 @@ const metadata = {
   </section>
 
   <!-- Services Section -->
-  <OurServices />
+  <OurServices ourServiceData={servicesData.our_service_home} />
 
   <!-- Contact Section -->
   <ConactSection />

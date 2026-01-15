@@ -1,12 +1,14 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
+import '~/styles/global.css';
 
 import HeroSection from '~/components/HomePage/Herosection.astro';
 import AboutSection from '~/components/HomePage/AboutSection.astro';
 import OurServices from '~/components/HomePage/OurServices.astro';
 import WhyusSection from '~/components/HomePage/WhyusSection.astro';
-import Testimonial from './homes/Testimonial.astro';
+
 import ConactSection from '~/components/HomePage/ConactSection.astro';
+import Testimonial from '~/components/HomePage/Testimonial.astro';
 
 /* ================= META ================= */
 
@@ -32,7 +34,7 @@ const fallbackData = {
   },
 
   our_service_home: {
-    title: "Home Stairlift Assessment",
+    title: "What do we do ?",
     slug: "home-stairlift-assessment",
     services: [
       {
