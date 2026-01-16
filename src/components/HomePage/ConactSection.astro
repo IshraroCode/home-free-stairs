@@ -178,6 +178,8 @@ const contactInfo = {
 </div>
 
 <script>
+import { BASE_URL } from "~/utils/apliInstance";
+
   document.addEventListener("DOMContentLoaded", () => {
     const form:any = document.getElementById("contact-form");
     const modal:any = document.getElementById("success-modal");
@@ -189,13 +191,13 @@ const contactInfo = {
       const payload = Object.fromEntries(new FormData(form));
 
       try {
-        const res = await fetch("http://0.0.0.0:8055/items/ContactUs/", {
+        const res = await fetch(`${BASE_URL}/items/ContactUs/`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
         });
 
-        if (!res.ok) throw new Error("Failed");
+       
 
         modal.classList.remove("hidden");
         modal.classList.add("flex");

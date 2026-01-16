@@ -9,6 +9,7 @@ import WhyusSection from '~/components/HomePage/WhyusSection.astro';
 
 import ConactSection from '~/components/HomePage/ConactSection.astro';
 import Testimonial from '~/components/HomePage/Testimonial.astro';
+import { BASE_URL, getApi } from '~/utils/apliInstance';
 
 /* ================= META ================= */
 
@@ -128,7 +129,7 @@ let pageData = fallbackData;
 
 try {
   const res = await fetch(
-    'http://0.0.0.0:8055/items/HomePage?fields=*,hero_section.*,About_section.*,our_service_home.*,seo_details.*,whyusection.*,reviewsection.*'
+    `${BASE_URL}/items/HomePage?fields=*,hero_section.*,About_section.*,our_service_home.*,seo_details.*,whyusection.*,reviewsection.*`
   );
 
   if (res.ok) {
