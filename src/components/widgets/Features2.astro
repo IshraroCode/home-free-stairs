@@ -1,7 +1,7 @@
 ---
 import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
 import Headline from '~/components/ui/Headline.astro';
-import ItemGrid2 from '~/components/ui/ItemGrid2.astro';
+
 import type { Features as Props } from '~/types';
 
 const {
@@ -32,50 +32,5 @@ const {
     classes={classes?.headline as Record<string, string>}
   />
 
-  <ItemGrid2
-    items={items}
-    columns={columns}
-    defaultIcon={defaultIcon}
-    classes={{
-      container: 'gap-4 md:gap-6',
-
-      panel: `
-        relative flex flex-col items-center text-center
-        rounded-xl
-        bg-white dark:bg-slate-900
-        border border-[#ffffff29] dark:border-slate-800
-        shadow-[0_4px_30px_rgba(0,0,0,0.1)]
-        p-6
-        transition-all duration-300
-        hover:shadow-lg
-      `,
-
-      icon: `
-        w-14 h-14 mb-4
-        flex items-center justify-center
-        rounded-full
-        bg-white
-        border border-primary
-        text-primary
-        shadow-md
-      `,
-
-      title: 'text-lg font-semibold mb-2',
-
-      description: 'text-sm text-slate-600 dark:text-slate-300 mb-6',
-
-      action: `
-        mt-auto
-        w-9 h-9
-        rounded-full
-        border border-primary
-        flex items-center justify-center
-        text-primary
-        transition
-        hover:bg-primary hover:text-white
-      `,
-
-      ...((classes?.items as Record<string, never>) ?? {}),
-    }}
-  />
+  
 </WidgetWrapper>

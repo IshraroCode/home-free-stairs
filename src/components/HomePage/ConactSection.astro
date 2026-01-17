@@ -191,7 +191,7 @@ import { BASE_URL } from "~/utils/apliInstance";
       const payload = Object.fromEntries(new FormData(form));
 
       try {
-        const res = await fetch(`${BASE_URL}/items/ContactUs/`, {
+        const res = await fetch(`http://0.0.0.0:8055/items/ContactUs/`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),

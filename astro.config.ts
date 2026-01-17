@@ -2,7 +2,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 import { defineConfig } from 'astro/config';
-
+import node from '@astrojs/node';
 import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
 import mdx from '@astrojs/mdx';
@@ -39,7 +39,10 @@ const whenExternalScripts = (
     : [];
 
 export default defineConfig({
-  output: 'static',
+  output: 'server',       // 🔴 REQUIRED
+  adapter: node({          // ✅ FIX: options object required
+    mode: 'standalone',    // recommended
+  }),   
 
   integrations: [
     /**
