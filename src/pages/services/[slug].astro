@@ -1,97 +1,165 @@
 ---
 import AppLayout from "~/layouts/PageLayout.astro";
 import WidgetWrapper from "~/components/ui/WidgetWrapper.astro";
-import stairliftImg from "~/assets/images/aboutSection.png";
 import ServicesAll from "~/components/widgets/ServicesAll.astro";
 import ConactSection from "~/components/HomePage/ConactSection.astro";
+import { BASE_URL } from "~/utils/apliInstance";
+import PageLayout from "~/layouts/PageLayout.astro";
 
-export const prerender = true;
+export const prerender = false; // ✅ SSR ENABLED
 
-/* 👇 REQUIRED FOR DYNAMIC ROUTES */
-export async function getStaticPaths() {
-  return [
-    {
-      params: { slug: "home-stairlift-assessment" },
-      props: {
-        title: "Home Stairlift Assessment",
-      },
-    },
-    {
-      params: { slug: "straight-stairlifts" },
-      props: {
-        title: "Straight Stairlifts",
-      },
-    },
-  ];
+const { slug } = Astro.params;
+
+/* =========================
+   FALLBACK DATA
+========================= */
+const fallbackService = {
+  title: "Our Service",
+  enter_descriptions:
+    "Professional stairlift services designed for safety, comfort, and reliability.",
+  image: "",
+  points: [],
+};
+
+/* =========================
+   FETCH SERVICE DATA (SSR)
+========================= */
+let service = fallbackService;
+let AllserviceData = [];
+
+try {
+  const [serviceRes, allServiceRes] = await Promise.all([
+    fetch(`${BASE_URL}/items/Services?filter[slug][_eq]=${slug}`),
+    fetch(`${BASE_URL}/items/Services`)
+  ]);
+
+  if (serviceRes.ok) {
+    const serviceJson = await serviceRes.json();
+    const item = serviceJson?.data?.[0];
+
+    if (item) {
+      /* Extract image from HTML */
+      const imgMatch = item?.veribage_list?.match(
+        /<img[^>]+src="([^">]+)"/
+      );
+      const image = imgMatch?.[1] || "";
+
+      /* Extract bullet points */
+      const points =
+        item?.veribage_list
+          ?.match(/&bull;([^<]+)/g)
+          ?.map(p => p.replace("&bull;", "").trim()) || [];
+
+      service = {
+        title: item?.title ?? fallbackService.title,
+        enter_descriptions:
+          item?.enter_descriptions ?? fallbackService.enter_descriptions,
+        image,
+        points,
+      };
+    }
+  }
+
+  if (allServiceRes.ok) {
+    const allJson = await allServiceRes.json();
+    AllserviceData = allJson?.data || [];
+  }
+} catch (err) {
+  console.warn("Directus API failed, fallback used", err);
 }
+console.log("PREVIEW SSR RUNNING", new Date().toISOString());
 
-/* Props from getStaticPaths */
-const { title } = Astro.props;
-
-const points = [
-  "In-home staircase measurement and evaluation",
-  "Assessment of user mobility and comfort needs",
-  "Suitability check for different stairlift options",
-  "Safety and space assessment",
-  "Expert recommendations tailored to your home",
-];
 ---
 
+<PageLayout>
 
-<AppLayout>
-  <WidgetWrapper>
-    <section class="mt-40">
-      <!-- Left Image -->
-      <div class="flex flex-col lg:flex-row  items-center">
-        <!-- Left Image -->
-        <div class="w-full lg:w-1/2 flex justify-center lg:justify-start mb-8 lg:mb-0">
-          <img
-            src={stairliftImg.src}
-            alt="Home Stairlift Assessment"
-            class="w-full max-w-md h-auto object-cover "
-          />
-        </div>
-      
-        <!-- Right Content -->
-        <div class="w-full lg:w-1/2 flex flex-col">
-          <h2 class="text-4xl font-semibold mb-4">Home Stairlift Assessment</h2>
-          <p class="text-gray-600 mb-6">
-            A professional home visit to assess your staircase and mobility needs before recommending the right stairlift solution.
+  <section class="py-20 px-4 sm:px-8 lg:px-16 mt-0 sm:mt-5 lg:mt-14">
+    <div class="max-w-7xl mx-auto">
+  
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 items-center">
+  
+        <!-- IMAGE -->
+        {service.image && (
+          <div class="flex justify-center lg:justify-start">
+            <div
+              class="w-full max-w-[672px] aspect-[672/825] overflow-hidden"
+            >
+              <img
+                src={service.image}
+                alt={service.title}
+                class="w-full h-full object-cover"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        )}
+  
+        <!-- CONTENT -->
+        <div class="flex flex-col max-w-xl">
+  
+          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-semibold leading-tight mb-4">
+            {service.title}
+          </h1>
+  
+          <p class="text-gray-600 text-base sm:text-lg mb-6">
+            {service.enter_descriptions}
           </p>
-      
-          <ul class="space-y-4 mb-8">
-            {points.map(point => (
-              <li class="flex items-start gap-3">
-                {/* <span class="mt-1 h-3 w-3 bg-amber-600 rounded-full flex-shrink-0"></span> */}
-                <span class="text-gray-700">{point}</span>
-              </li>
-            ))}
-          </ul>
-      
-          <!-- Buttons -->
-          <div class="flex flex-col gap-4">
-            <button class="bg-secondary text-white py-3 px-6 rounded  transition">
+  
+          {service.points.length > 0 && (
+            <ul class="space-y-4 mb-8">
+              {service.points.map(point => (
+                <li class="flex items-start gap-3">
+                  <span class="mt-2 h-2 w-2 rounded-full bg-secondary flex-shrink-0"></span>
+                  <span class="text-gray-700 leading-relaxed">
+                    {point}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
+  
+          <!-- CTA BUTTONS -->
+          <div class="flex flex-col sm:flex-col gap-4 mt-4 w-full max-w-[581px]">
+
+            <a
+              href="/assessment"
+              class="bg-secondary text-white text-center py-3 px-6 rounded-md font-medium hover:opacity-90 transition"
+            >
               Schedule Your Assessment
-            </button>
-            <button class="border border-secondary text-secondary hover:text-white py-3 px-6 rounded hover:bg-secondary transition">
+            </a>
+  
+            <button
+              class="border border-secondary text-secondary py-3 px-6 rounded-md font-medium hover:bg-secondary hover:text-white transition"
+            >
               Request a Call Back
             </button>
           </div>
+  
         </div>
       </div>
-      
+    </div>
+  </section>
+  
 
-    </section>
+    <!-- ALL SERVICES -->
+    <div class="max-w-7xl mx-auto">
 
-    <!-- All Services Section -->
-    <div class="mt-32 ">
-      <h2 class="text-4xl font-bold text-secondary mb-10">
+      <h2
+        class="
+          text-3xl sm:text-4xl
+          font-bold text-secondary
+          
+          text-center lg:text-left
+        "
+      >
         Our All Services
       </h2>
-      <ServicesAll />
+  
+      <ServicesAll data={AllserviceData} />
+  
     </div>
 
-    <!-- Contact Section -->
+    <!-- CONTACT -->
     <ConactSection />
-  </WidgetWrapper>
-</AppLayout>
+
+</PageLayout>

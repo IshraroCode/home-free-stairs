@@ -3,44 +3,68 @@ import WidgetWrapper from "../ui/WidgetWrapper.astro";
 
 const {
   title = "What We Offer",
+  data = [],
   subtitle = "",
   id,
   isDark = false,
   classes = {},
 } = Astro.props;
 
-const services = [
+/* =========================
+   FALLBACK SERVICES DATA
+========================= */
+const fallbackServices = [
   {
     title: "Home Stairlift Assessment",
-    desc: "We visit your home to assess your staircase and understand your mobility needs before recommending the right solution.",
+    enter_descriptions:
+      "We visit your home to assess your staircase and understand your mobility needs before recommending the right solution.",
     icon: "home",
+    slug: "home-stairlift-assessment",
   },
   {
     title: "Stairlift Consultation",
-    desc: "Our experts guide you through suitable stairlift options and explain the best approach for your home.",
-    icon: "chat",
+    enter_descriptions:
+      "Our experts guide you through suitable stairlift options and explain the best approach for your home.",
+    icon: "mark_unread_chat_alt",
+    slug: "stairlift-consultation",
   },
   {
     title: "Professional Stairlift Installation",
-    desc: "Professional installation ensuring safety, precision, and long-term reliability.",
-    icon: "build",
+    enter_descriptions:
+      "Safe and professional stairlift installation carried out by trained experts.",
+    icon: "settings",
+    slug: "professional-stairlift-installation",
   },
   {
-    title: "Home Stairlift Assessment",
-    desc: "We visit your home to assess your staircase and understand your mobility needs before recommending the right solution.",
-    icon: "home",
+    title: "Safety Checks & User Guidance",
+    enter_descriptions:
+      "We ensure your stairlift is safe and easy to use with complete checks and guidance.",
+    icon: "safety_check",
+    slug: "#",
   },
   {
-    title: "Stairlift Consultation",
-    desc: "Our experts guide you through suitable stairlift options and explain the best approach for your home.",
-    icon: "chat",
+    title: "Repair & Maintenance Services",
+    enter_descriptions:
+      "Reliable repairs and regular maintenance to keep your stairlift working smoothly.",
+    icon: "tire_repair",
+    slug: "#",
   },
   {
-    title: "Professional Stairlift Installation",
-    desc: "Professional installation ensuring safety, precision, and long-term reliability.",
-    icon: "build",
+    title: "Stairlift Replacement & Upgrades",
+    enter_descriptions:
+      "Upgrade or replace your stairlift to improve comfort, safety, and performance.",
+    icon: "find_replace",
+    slug: "stairlift-replacement-and-upgrades",
   },
 ];
+
+/* =========================
+   FINAL SAFE DATA
+========================= */
+const services =
+  Array.isArray(data) && data.length > 0
+    ? data
+    : fallbackServices;
 ---
 
 <WidgetWrapper
@@ -48,98 +72,93 @@ const services = [
   isDark={isDark}
   containerClass={`max-w-7xl mx-auto ${classes?.container ?? ""}`}
 >
-<section class="py-24">
+  <section class="py-24">
+    <div class="max-w-7xl mx-auto px-4">
 
-  <div class="max-w-7xl mx-auto px-4">
-  
-    <!-- GRID -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-24">
-      
-      {services.map((service) => (
-        <div class="relative bg-[#5B3A2B] rounded-2xl pt-28 pb-10 px-8 text-center overflow-visible shadow-lg">
+      <!-- GRID -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-24">
 
-          <!-- ICON CIRCLE -->
-         <div
-  class="
-    absolute -top-[48px] sm:-top-[56px] md:-top-[64px] lg:-top-[69px]
-    left-1/2 -translate-x-1/2
+        {services?.map((service) => (
+          <div class="relative bg-[#5B3A2B] rounded-2xl pt-28 pb-10 px-8 text-center overflow-visible shadow-lg">
 
-    w-20 h-20
-    sm:w-24 sm:h-24
-    md:w-28 md:h-28
-    lg:w-[138px] lg:h-[138px]
+            <!-- ICON -->
+            {service?.icon && (
+              <div
+                class="
+                  absolute -top-[48px] sm:-top-[56px] md:-top-[64px] lg:-top-[69px]
+                  left-1/2 -translate-x-1/2
+                  w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-[138px] lg:h-[138px]
+                  bg-white rounded-full
+                  flex items-center justify-center
+                  ring-1 ring-black/5
+                  shadow-[0_12px_30px_rgba(0,0,0,0.18)]
+                  z-20
+                "
+              >
+                <span
+                  class="
+                    material-symbols-rounded
+                    text-primary
+                    text-4xl sm:text-5xl md:text-6xl lg:text-[82px]
+                  "
+                >
+                  {service.icon}
+                </span>
+              </div>
+            )}
 
-    bg-white rounded-full
-    flex items-center justify-center
-    ring-1 ring-black/5
-    shadow-[0_12px_30px_rgba(0,0,0,0.18)]
-    z-20
-  "
->
-  <span
-    class="
-      material-symbols-rounded
-      text-primary
-      text-4xl
-      sm:text-5xl
-      md:text-6xl
-      lg:text-[82px]
-      leading-none
-      flex items-center justify-center
-    "
-  >
-    {service.icon}
-  </span>
-</div>
+            <!-- TITLE -->
+            {service?.title && (
+              <h3 class="text-white text-xl font-semibold mb-4">
+                {service.title}
+              </h3>
+            )}
 
+            <!-- DESCRIPTION -->
+            {(service?.enter_descriptions || service?.desc) && (
+              <p class="text-white/80 text-sm leading-relaxed mb-8">
+                {service.enter_descriptions || service.desc}
+              </p>
+            )}
 
-          <!-- CONTENT -->
-          <h3 class="text-white text-xl font-semibold mb-4">
-            {service.title}
-          </h3>
+            <!-- LINK -->
+            {(service?.slug || service?.slug === "#") && (
+              <a
+                href={service.slug ? `/services/${service.slug}` : "#"}
+                class="
+                  w-12 h-12 mx-auto
+                  bg-white rounded-full
+                  flex items-center justify-center
+                  shadow-md
+                  transition hover:scale-110 hover:bg-primary
+                "
+              >
+                <span class="material-symbols-rounded text-secondary text-lg">
+                  arrow_forward
+                </span>
+              </a>
+            )}
 
-          <p class="text-white/80 text-sm leading-relaxed mb-8">
-            {service.desc}
-          </p>
+          </div>
+        ))}
 
-          <!-- ARROW -->
-          <a
-  href={`/services/home-stairlift-assessment`}
-  class="w-12 h-12 mx-auto
-         bg-white rounded-full
-         flex items-center justify-center
-         shadow-md
-         transition hover:scale-110 hover:bg-primary"
->
-  <span class="material-symbols-rounded text-secondary text-lg">
-    arrow_forward
-  </span>
-</a>
-
-
-        </div>
-      ))}
-
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 </WidgetWrapper>
 
 <style>
+.material-symbols-rounded {
+  font-size: 3rem;
+}
+@media (max-width: 1024px) {
   .material-symbols-rounded {
-    font-size: 3rem; /* desktop */
+    font-size: 2.5rem;
   }
-  
-  @media (max-width: 1024px) {
-    .material-symbols-rounded {
-      font-size: 2.5rem;
-    }
+}
+@media (max-width: 640px) {
+  .material-symbols-rounded {
+    font-size: 2rem;
   }
-  
-  @media (max-width: 640px) {
-    .material-symbols-rounded {
-      font-size: 2rem;
-    }
-  }
-  </style>
-  
+}
+</style>

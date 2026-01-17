@@ -9,6 +9,11 @@ metadata:
     default: Home Free Stairs
     template: '%s'
   description: ''
+  openGraph:
+  images:
+    - url: 'https://example.com/assets/images/default.png'
+      width: 1200
+      height: 628
 
 i18n:
   language: en
@@ -24,4 +29,5 @@ analytics:
       id: null
 
 ui:
-  theme: 'light'
+  theme: default
+  clientRouter: false
