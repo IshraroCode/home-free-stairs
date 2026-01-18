@@ -10,7 +10,7 @@ import partytown from '@astrojs/partytown';
 import icon from 'astro-icon';
 import compress from 'astro-compress';
 import type { AstroIntegration } from 'astro';
-
+import vercel from '@astrojs/vercel/serverless';
 import astrowind from './vendor/integration';
 
 import {
@@ -40,9 +40,8 @@ const whenExternalScripts = (
 
 export default defineConfig({
   output: 'server',       // 🔴 REQUIRED
-  adapter: node({          // ✅ FIX: options object required
-    mode: 'standalone',    // recommended
-  }),   
+ /* ✅ Vercel Serverless Adapter */
+  adapter: vercel({}), 
 
   integrations: [
     /**
