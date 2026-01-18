@@ -1,8 +1,8 @@
 import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead, u as unescapeHTML, b as addAttribute } from '../chunks/astro/server_Bc-coSIJ.mjs';
 import 'piccolore';
-import { $ as $$ConactSection } from '../chunks/ConactSection_BMl-KHe9.mjs';
-import { $ as $$OurServices } from '../chunks/OurServices_COq3DGRS.mjs';
-import { $ as $$PageLayout } from '../chunks/PageLayout_BfWfYlDX.mjs';
+import { $ as $$ConactSection } from '../chunks/ConactSection_CZ51Y2Xz.mjs';
+import { $ as $$OurServices } from '../chunks/OurServices_DvCh_1NV.mjs';
+import { $ as $$PageLayout } from '../chunks/PageLayout_BEl4efL9.mjs';
 import aboutImage from '../chunks/aboutSection_-Ksamdbt.mjs';
 import { B as BASE_URL } from '../chunks/apliInstance_C-EF-ImI.mjs';
 export { renderers } from '../renderers.mjs';
