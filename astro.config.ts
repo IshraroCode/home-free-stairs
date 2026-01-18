@@ -2,7 +2,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 import { defineConfig } from 'astro/config';
-import node from '@astrojs/node';
+
 import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
 import mdx from '@astrojs/mdx';
@@ -10,7 +10,7 @@ import partytown from '@astrojs/partytown';
 import icon from 'astro-icon';
 import compress from 'astro-compress';
 import type { AstroIntegration } from 'astro';
-import vercel from '@astrojs/vercel/serverless';
+
 import astrowind from './vendor/integration';
 
 import {
@@ -39,9 +39,7 @@ const whenExternalScripts = (
     : [];
 
 export default defineConfig({
-  output: 'server',       // 🔴 REQUIRED
- /* ✅ Vercel Serverless Adapter */
-  adapter: vercel({}), 
+  output: 'static',
 
   integrations: [
     /**
