@@ -5,7 +5,7 @@ import heroImage from '../chunks/hero-image_DvC7lH1A.mjs';
 import 'clsx';
 import { $ as $$ServicesAll } from '../chunks/ServicesAll_CuM9kJM3.mjs';
 import { $ as $$PageLayout } from '../chunks/PageLayout_7vC72bwJ.mjs';
-import { B as BASE_URL } from '../chunks/apliInstance_C-EF-ImI.mjs';
+import { B as BASE_URL } from '../chunks/apliInstance_DK-j_Tx6.mjs';
 export { renderers } from '../renderers.mjs';
 
 const $$Astro = createAstro("https://example.com");

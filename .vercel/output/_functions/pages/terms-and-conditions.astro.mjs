@@ -1,7 +1,7 @@
 import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead, u as unescapeHTML } from '../chunks/astro/server_Bc-coSIJ.mjs';
 import 'piccolore';
 import { $ as $$PageLayout } from '../chunks/PageLayout_7vC72bwJ.mjs';
-import { B as BASE_URL } from '../chunks/apliInstance_C-EF-ImI.mjs';
+import { B as BASE_URL } from '../chunks/apliInstance_DK-j_Tx6.mjs';
 export { renderers } from '../renderers.mjs';
 
 const $$TermsAndConditions = createComponent(async ($$result, $$props, $$slots) => {

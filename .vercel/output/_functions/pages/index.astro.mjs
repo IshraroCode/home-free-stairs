@@ -8,7 +8,7 @@ import aboutImage from '../chunks/aboutSection_DZh8MvaO.mjs';
 import { $ as $$OurServices } from '../chunks/OurServices_C7LlF6dL.mjs';
 import { $ as $$ConactSection } from '../chunks/ConactSection_BD_trdEy.mjs';
 import user from '../chunks/user_CZuksunW.mjs';
-import { B as BASE_URL } from '../chunks/apliInstance_C-EF-ImI.mjs';
+import { B as BASE_URL } from '../chunks/apliInstance_DK-j_Tx6.mjs';
 export { renderers } from '../renderers.mjs';
 
 const $$Astro$3 = createAstro("https://example.com");

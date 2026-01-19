@@ -1,6 +1,6 @@
 import { renderers } from './renderers.mjs';
 import { c as createExports, s as serverEntrypointModule } from './chunks/_@astrojs-ssr-adapter_DV-ScXJ1.mjs';
-import { manifest } from './manifest_H8RPCo8o.mjs';
+import { manifest } from './manifest_DDemdQTO.mjs';
 
 const serverIslandMap = new Map();;
 
@@ -24,16 +24,15 @@ const pageMap = new Map([
     ["src/pages/terms-and-conditions.astro", _page7],
     ["src/pages/index.astro", _page8]
 ]);
-
 const _manifest = Object.assign(manifest, {
     pageMap,
     serverIslandMap,
     renderers,
     actions: () => import('./noop-entrypoint.mjs'),
-    middleware: () => import('./_noop-middleware.mjs')
+    middleware: undefined
 });
 const _args = {
-    "middlewareSecret": "1ba659e5-b0a6-42cb-acd7-430a6b04b06a",
+    "middlewareSecret": "2d9d2d32-1911-4f69-be47-ad47d2115c2c",
     "skewProtection": false
 };
 const _exports = createExports(_manifest, _args);
