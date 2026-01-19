@@ -18,13 +18,8 @@ export default defineConfig({
   output: "server", // ✅ SSR mode
   
   adapter: vercel({
-    // Valid Vercel adapter options only
-    maxDuration: 10,  // ✅ Extend ISR/static refresh timeout (if using hybrid output)
-    // Add if needed:
-    // webAnalytics: { enabled: true },  // Enable Vercel Web Analytics
-    // imagesConfig: { sizes: [320, 640, 1280] },  // Optimize images
-    // isr: true,  // Enable Incremental Static Regeneration
-    // edgeMiddleware: true,  // Use Edge Runtime for middleware (faster, but check compat)
+    edgeMiddleware: true,  // ✅ Enables Edge runtime for middleware & functions (faster cold starts)
+    maxDuration: 10,       // Keep for ISR timeouts
   }),
   
   integrations: [
