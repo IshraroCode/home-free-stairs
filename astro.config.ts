@@ -1,36 +1,32 @@
-import path from 'path';
-import { fileURLToPath } from 'url';
+import path from "path";
+import { fileURLToPath } from "url";
 
-import { defineConfig } from 'astro/config';
-import node from '@astrojs/node';
-import sitemap from '@astrojs/sitemap';
-import tailwind from '@astrojs/tailwind';
-import mdx from '@astrojs/mdx';
-import partytown from '@astrojs/partytown';
-import icon from 'astro-icon';
-import compress from 'astro-compress';
-import type { AstroIntegration } from 'astro';
-import vercel from '@astrojs/vercel/serverless';
-import astrowind from './vendor/integration';
+import { defineConfig } from "astro/config";
+import sitemap from "@astrojs/sitemap";
+import tailwind from "@astrojs/tailwind";
+import mdx from "@astrojs/mdx";
+import partytown from "@astrojs/partytown";
+import icon from "astro-icon";
+import compress from "astro-compress";
+import vercel from "@astrojs/vercel/serverless";
+import astrowind from "./vendor/integration";
 
 import {
   readingTimeRemarkPlugin,
   responsiveTablesRehypePlugin,
   lazyImagesRehypePlugin,
-} from './src/utils/frontmatter';
+} from "./src/utils/frontmatter";
+import node from "@astrojs/node";
+
+
+
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-/**
- * External scripts toggle
- * ----------------------------------
- * Set this to true only if you need
- * third-party scripts (analytics, ads, etc.)
- */
 const hasExternalScripts = false;
 
 const whenExternalScripts = (
-  items: (() => AstroIntegration) | (() => AstroIntegration)[] = []
+  items: (() => any) | (() => any)[] = []
 ) =>
   hasExternalScripts
     ? Array.isArray(items)
@@ -39,127 +35,48 @@ const whenExternalScripts = (
     : [];
 
 export default defineConfig({
-  output: 'server',       // 🔴 REQUIRED
- /* ✅ Vercel Serverless Adapter */
-  adapter: vercel({}), 
+  output: "server",
+
+  adapter: node({
+    mode: "standalone",
+  }),
 
   integrations: [
-    /**
-     * Tailwind CSS
-     * ----------------------------------
-     * Base styles disabled because
-     * Astrowind handles its own UI styles
-     */
-    tailwind({
-      applyBaseStyles: false,
-    }),
-
+    tailwind({ applyBaseStyles: false }),
     sitemap(),
     mdx(),
-
-    /**
-     * Astro Icons
-     * ----------------------------------
-     * Icon packs used across the UI
-     */
     icon({
-      include: {
-        tabler: ['*'],
-        'flat-color-icons': [
-          'template',
-          'gallery',
-          'approval',
-          'document',
-          'advertising',
-          'currency-exchange',
-          'voice-presentation',
-          'business-contact',
-          'database',
-        ],
-      },
+      include: { tabler: ["*"] },
     }),
-
-    /**
-     * Partytown
-     * ----------------------------------
-     * Loads external scripts in a web worker
-     * Enabled only when `hasExternalScripts` is true
-     */
     ...whenExternalScripts(() =>
       partytown({
-        config: { forward: ['dataLayer.push'] },
+        config: { forward: ["dataLayer.push"] },
       })
     ),
-
-    /**
-     * Compression
-     * ----------------------------------
-     * Optimizes CSS, JS, and HTML output
-     */
     compress({
       CSS: true,
-      HTML: {
-        'html-minifier-terser': {
-          removeAttributeQuotes: false,
-        },
-      },
+      HTML: { "html-minifier-terser": { removeAttributeQuotes: false } },
       Image: false,
       JavaScript: true,
       SVG: false,
       Logger: 1,
     }),
-
-    /**
-     * Astrowind Integration
-     * ----------------------------------
-     * IMPORTANT:
-     * Light/Dark theme is controlled from:
-     * 👉 src/config.yaml
-     *
-     * CURRENT (Light mode only):
-     * ui:
-     *   theme: light:only
-     *
-     * FUTURE (Enable dark mode):
-     * ui:
-     *   theme: system  |  dark
-     */
-    astrowind({
-      config: './src/config.yaml',
-    }),
+    astrowind({ config: "./src/config.yaml" }),
   ],
 
-  /**
-   * Image Optimization
-   * ----------------------------------
-   * Allowed external image domains
-   */
   image: {
-    domains: ['cdn.pixabay.com'],
+    domains: ["cdn.pixabay.com"],
   },
 
-  /**
-   * Markdown Configuration
-   * ----------------------------------
-   * Custom remark & rehype plugins
-   */
   markdown: {
     remarkPlugins: [readingTimeRemarkPlugin],
-    rehypePlugins: [
-      responsiveTablesRehypePlugin,
-      lazyImagesRehypePlugin,
-    ],
+    rehypePlugins: [responsiveTablesRehypePlugin, lazyImagesRehypePlugin],
   },
 
-  /**
-   * Vite Configuration
-   * ----------------------------------
-   * Path alias for cleaner imports
-   */
   vite: {
     resolve: {
       alias: {
-        '~': path.resolve(__dirname, './src'),
+        "~": path.resolve(__dirname, "./src"),
       },
     },
   },
