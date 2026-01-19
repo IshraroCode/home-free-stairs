@@ -8,7 +8,7 @@ import mdx from "@astrojs/mdx";
 import partytown from "@astrojs/partytown";
 import icon from "astro-icon";
 import compress from "astro-compress";
-import vercel from "@astrojs/vercel/serverless";
+import vercel from "@astrojs/vercel/serverless"; // ✅ Keep this import
 import astrowind from "./vendor/integration";
 
 import {
@@ -16,10 +16,6 @@ import {
   responsiveTablesRehypePlugin,
   lazyImagesRehypePlugin,
 } from "./src/utils/frontmatter";
-import node from "@astrojs/node";
-
-
-
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -35,11 +31,9 @@ const whenExternalScripts = (
     : [];
 
 export default defineConfig({
-  output: "server",
+  output: "server", // ✅ SSR mode
 
-  adapter: node({
-    mode: "standalone",
-  }),
+  adapter: vercel({}), // ✅ Fixed: No 'runtime' needed; empty config works
 
   integrations: [
     tailwind({ applyBaseStyles: false }),
@@ -65,7 +59,10 @@ export default defineConfig({
   ],
 
   image: {
-    domains: ["cdn.pixabay.com"],
+    domains: [
+      "cdn.pixabay.com",
+      // Add your Directus domain here, e.g., "your-directus-domain.com"
+    ],
   },
 
   markdown: {
