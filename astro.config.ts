@@ -10,16 +10,14 @@ import icon from "astro-icon";
 import compress from "astro-compress";
 import vercel from "@astrojs/vercel/serverless";
 import astrowind from "./vendor/integration";
-
+import node from "@astrojs/node";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const hasExternalScripts = false;
 
 export default defineConfig({
-  output: "server", // ✅ SSR mode
-  
-  adapter: vercel({
-    edgeMiddleware: true,  // ✅ Enables Edge runtime for middleware & functions (faster cold starts)
-    maxDuration: 10,       // Keep for ISR timeouts
+  output: "static", // ✅ SSR mode
+  adapter: node({
+    mode: "standalone",
   }),
   
   integrations: [
