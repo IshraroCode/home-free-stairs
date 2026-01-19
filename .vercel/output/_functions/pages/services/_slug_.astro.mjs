@@ -7,7 +7,6 @@ import { $ as $$PageLayout } from '../../chunks/PageLayout_7vC72bwJ.mjs';
 export { renderers } from '../../renderers.mjs';
 
 const $$Astro = createAstro("https://example.com");
-const prerender = false;
 const $$slug = createComponent(async ($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
   Astro2.self = $$slug;
@@ -70,7 +69,6 @@ const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
   __proto__: null,
   default: $$slug,
   file: $$file,
-  prerender,
   url: $$url
 }, Symbol.toStringTag, { value: 'Module' }));
 

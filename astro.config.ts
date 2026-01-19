@@ -15,12 +15,10 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const hasExternalScripts = false;
 
 export default defineConfig({
-  output: "server", // ✅ SSR mode
-  
+  output: "server",
   adapter: vercel({
-    // Vercel serverless functions
+    // Add if needed: runtime: "nodejs18.x"
   }),
-  
   integrations: [
     tailwind({ applyBaseStyles: false }),
     sitemap(),
@@ -35,22 +33,22 @@ export default defineConfig({
     compress({
       CSS: true,
       HTML: { "html-minifier-terser": { removeAttributeQuotes: false } },
-      Image: false,
+      Image: false,  // Disable for SSR image issues
       JavaScript: true,
       SVG: false,
       Logger: 1,
     }),
-    astrowind({ config: "./src/config.yaml" }),
+    astrowind({ 
+      config: new URL("./src/config.yaml", import.meta.url).pathname  // Absolute path fix
+    }),
   ],
-
   image: {
     domains: ["cdn.pixabay.com"],
   },
-
   vite: {
     resolve: {
       alias: {
-        "~": path.resolve(__dirname, "./src"),
+        "~": new URL("./src", import.meta.url).pathname,  // SSR-safe alias
       },
     },
   },
