@@ -1,9 +1,9 @@
 import { e as createAstro, c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead, b as addAttribute } from '../../chunks/astro/server_Bc-coSIJ.mjs';
 import 'piccolore';
-import { $ as $$ServicesAll } from '../../chunks/ServicesAll_DeU6KlLK.mjs';
-import { $ as $$ConactSection } from '../../chunks/ConactSection_WpN5dEP9.mjs';
+import { $ as $$ServicesAll } from '../../chunks/ServicesAll_CuM9kJM3.mjs';
+import { $ as $$ConactSection } from '../../chunks/ConactSection_BD_trdEy.mjs';
 import { B as BASE_URL } from '../../chunks/apliInstance_C-EF-ImI.mjs';
-import { $ as $$PageLayout } from '../../chunks/PageLayout_C8mcGRQ9.mjs';
+import { $ as $$PageLayout } from '../../chunks/PageLayout_7vC72bwJ.mjs';
 export { renderers } from '../../renderers.mjs';
 
 const $$Astro = createAstro("https://example.com");

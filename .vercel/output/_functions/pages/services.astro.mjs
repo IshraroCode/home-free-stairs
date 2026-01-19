@@ -1,10 +1,10 @@
 import { e as createAstro, c as createComponent, m as maybeRenderHead, s as spreadAttributes, b as addAttribute, a as renderTemplate, r as renderComponent } from '../chunks/astro/server_Bc-coSIJ.mjs';
 import 'piccolore';
-import { $ as $$ConactSection } from '../chunks/ConactSection_WpN5dEP9.mjs';
+import { $ as $$ConactSection } from '../chunks/ConactSection_BD_trdEy.mjs';
 import heroImage from '../chunks/hero-image_DvC7lH1A.mjs';
 import 'clsx';
-import { $ as $$ServicesAll } from '../chunks/ServicesAll_DeU6KlLK.mjs';
-import { $ as $$PageLayout } from '../chunks/PageLayout_C8mcGRQ9.mjs';
+import { $ as $$ServicesAll } from '../chunks/ServicesAll_CuM9kJM3.mjs';
+import { $ as $$PageLayout } from '../chunks/PageLayout_7vC72bwJ.mjs';
 import { B as BASE_URL } from '../chunks/apliInstance_C-EF-ImI.mjs';
 export { renderers } from '../renderers.mjs';
 

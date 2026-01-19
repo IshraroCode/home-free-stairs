@@ -1,6 +1,6 @@
 import { e as createAstro, c as createComponent, m as maybeRenderHead, b as addAttribute, f as renderSlot, a as renderTemplate, r as renderComponent, F as Fragment, u as unescapeHTML, s as spreadAttributes } from './astro/server_Bc-coSIJ.mjs';
 import 'piccolore';
-import { t as trimSlash, g as getHomePermalink, a as getPermalink, b as getAsset, $ as $$Layout } from './Layout_qanOU9kt.mjs';
+import { t as trimSlash, g as getHomePermalink, a as getPermalink, b as getAsset, $ as $$Layout } from './Layout_BRK5jWw2.mjs';
 import 'clsx';
 import { twMerge } from 'tailwind-merge';
 /* empty css                         */
