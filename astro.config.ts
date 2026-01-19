@@ -1,6 +1,6 @@
+// astro.config.mjs
 import path from "path";
 import { fileURLToPath } from "url";
-
 import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
@@ -11,36 +11,16 @@ import compress from "astro-compress";
 import vercel from "@astrojs/vercel/serverless";
 import astrowind from "./vendor/integration";
 
-import {
-  readingTimeRemarkPlugin,
-  responsiveTablesRehypePlugin,
-  lazyImagesRehypePlugin,
-} from "./src/utils/frontmatter";
-import node from "@astrojs/node";
-
-
-
-
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
 const hasExternalScripts = false;
 
-const whenExternalScripts = (
-  items: (() => any) | (() => any)[] = []
-) =>
-  hasExternalScripts
-    ? Array.isArray(items)
-      ? items.map((item) => item())
-      : [items()]
-    : [];
-
 export default defineConfig({
-  output: "server",
-
-  adapter: node({
-    mode: "standalone",
+  output: "server"||"static", // ✅ SSR mode
+  
+  adapter: vercel({
+    // Vercel serverless functions
   }),
-
+  
   integrations: [
     tailwind({ applyBaseStyles: false }),
     sitemap(),
@@ -48,10 +28,9 @@ export default defineConfig({
     icon({
       include: { tabler: ["*"] },
     }),
-    ...whenExternalScripts(() =>
-      partytown({
-        config: { forward: ["dataLayer.push"] },
-      })
+    ...(hasExternalScripts 
+      ? [partytown({ config: { forward: ["dataLayer.push"] } })]
+      : []
     ),
     compress({
       CSS: true,
@@ -66,11 +45,6 @@ export default defineConfig({
 
   image: {
     domains: ["cdn.pixabay.com"],
-  },
-
-  markdown: {
-    remarkPlugins: [readingTimeRemarkPlugin],
-    rehypePlugins: [responsiveTablesRehypePlugin, lazyImagesRehypePlugin],
   },
 
   vite: {
