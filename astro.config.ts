@@ -10,15 +10,16 @@ import icon from "astro-icon";
 import compress from "astro-compress";
 import vercel from "@astrojs/vercel/serverless";
 import astrowind from "./vendor/integration";
-import node from "@astrojs/node";
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const hasExternalScripts = false;
 
 export default defineConfig({
-  output: "static", // ✅ SSR mode
-  adapter: node({
-    mode: "standalone",
-  }),
+  output: "static",
+  
+  // adapter: vercel({
+   
+  // }),
   
   integrations: [
     tailwind({ applyBaseStyles: false }),
