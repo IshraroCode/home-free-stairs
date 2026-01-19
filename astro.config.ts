@@ -1,6 +1,6 @@
+// astro.config.mjs
 import path from "path";
 import { fileURLToPath } from "url";
-
 import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
@@ -8,33 +8,19 @@ import mdx from "@astrojs/mdx";
 import partytown from "@astrojs/partytown";
 import icon from "astro-icon";
 import compress from "astro-compress";
-import vercel from "@astrojs/vercel/serverless"; // ✅ Keep this import
+import vercel from "@astrojs/vercel/serverless";
 import astrowind from "./vendor/integration";
 
-import {
-  readingTimeRemarkPlugin,
-  responsiveTablesRehypePlugin,
-  lazyImagesRehypePlugin,
-} from "./src/utils/frontmatter";
-
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
 const hasExternalScripts = false;
-
-const whenExternalScripts = (
-  items: (() => any) | (() => any)[] = []
-) =>
-  hasExternalScripts
-    ? Array.isArray(items)
-      ? items.map((item) => item())
-      : [items()]
-    : [];
 
 export default defineConfig({
   output: "server", // ✅ SSR mode
-
-  adapter: vercel({}), // ✅ Fixed: No 'runtime' needed; empty config works
-
+  
+  adapter: vercel({
+    // Vercel serverless functions
+  }),
+  
   integrations: [
     tailwind({ applyBaseStyles: false }),
     sitemap(),
@@ -42,10 +28,9 @@ export default defineConfig({
     icon({
       include: { tabler: ["*"] },
     }),
-    ...whenExternalScripts(() =>
-      partytown({
-        config: { forward: ["dataLayer.push"] },
-      })
+    ...(hasExternalScripts 
+      ? [partytown({ config: { forward: ["dataLayer.push"] } })]
+      : []
     ),
     compress({
       CSS: true,
@@ -59,15 +44,7 @@ export default defineConfig({
   ],
 
   image: {
-    domains: [
-      "cdn.pixabay.com",
-      // Add your Directus domain here, e.g., "your-directus-domain.com"
-    ],
-  },
-
-  markdown: {
-    remarkPlugins: [readingTimeRemarkPlugin],
-    rehypePlugins: [responsiveTablesRehypePlugin, lazyImagesRehypePlugin],
+    domains: ["cdn.pixabay.com"],
   },
 
   vite: {
