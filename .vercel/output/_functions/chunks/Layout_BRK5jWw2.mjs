@@ -858,12 +858,14 @@ const $$BasicScripts = createComponent(($$result, $$props, $$slots) => {
 })();<\/script>`])), defineScriptVars({ defaultTheme: UI.theme }));
 }, "/home/ocode-2023/FrontendHFS/src/components/common/BasicScripts.astro", void 0);
 
+const favIcon = "/_astro/favicon.LSYYyxmX.ico";
+
 const $$Astro = createAstro("https://example.com");
 const $$Layout = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
   Astro2.self = $$Layout;
   const { metadata = {} } = Astro2.props;
-  return renderTemplate`<html class="2xl:text-[20px]"> <head><!-- <Favicons /> -->${renderComponent($$result, "CommonMeta", $$CommonMeta, {})}${renderComponent($$result, "CustomStyles", $$CustomStyles, {})}${renderComponent($$result, "ApplyColorMode", $$ApplyColorMode, {})}${renderComponent($$result, "Metadata", $$Metadata, { ...metadata })}${renderComponent($$result, "SiteVerification", $$SiteVerification, {})}${renderComponent($$result, "Analytics", $$Analytics, {})}${renderHead()}</head> <body class="antialiased text-default bg-page tracking-tight"> ${renderSlot($$result, $$slots["default"])} ${renderComponent($$result, "BasicScripts", $$BasicScripts, {})} </body></html>`;
+  return renderTemplate`<html class="2xl:text-[20px]"> <head><link rel="shortcut icon"${addAttribute(favIcon, "href")}><!-- <Favicons /> -->${renderComponent($$result, "CommonMeta", $$CommonMeta, {})}${renderComponent($$result, "CustomStyles", $$CustomStyles, {})}${renderComponent($$result, "ApplyColorMode", $$ApplyColorMode, {})}${renderComponent($$result, "Metadata", $$Metadata, { ...metadata })}${renderComponent($$result, "SiteVerification", $$SiteVerification, {})}${renderComponent($$result, "Analytics", $$Analytics, {})}${renderHead()}</head> <body class="antialiased text-default bg-page tracking-tight"> ${renderSlot($$result, $$slots["default"])} ${renderComponent($$result, "BasicScripts", $$BasicScripts, {})} </body></html>`;
 }, "/home/ocode-2023/FrontendHFS/src/layouts/Layout.astro", void 0);
 
 export { $$Layout as $, getPermalink as a, getAsset as b, getHomePermalink as g, trimSlash as t };
