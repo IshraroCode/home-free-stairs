@@ -1,12 +1,12 @@
 import { e as createAstro, c as createComponent, m as maybeRenderHead, b as addAttribute, r as renderComponent, a as renderTemplate, F as Fragment, u as unescapeHTML } from '../chunks/astro/server_Bc-coSIJ.mjs';
 import 'piccolore';
-import { a as $$WidgetWrapper, $ as $$PageLayout } from '../chunks/PageLayout_DQV407cP.mjs';
+import { a as $$WidgetWrapper, $ as $$PageLayout } from '../chunks/PageLayout_C8mcGRQ9.mjs';
 /* empty css                                 */
 import heroImage from '../chunks/hero-image_DvC7lH1A.mjs';
 import heroBackgournd from '../chunks/Homepage2_DVh_AiBv.mjs';
 import aboutImage from '../chunks/aboutSection_DZh8MvaO.mjs';
-import { $ as $$OurServices } from '../chunks/OurServices_CtEf_2ZH.mjs';
-import { $ as $$ConactSection } from '../chunks/ConactSection_CUzn3NDD.mjs';
+import { $ as $$OurServices } from '../chunks/OurServices_uOBTYhXE.mjs';
+import { $ as $$ConactSection } from '../chunks/ConactSection_WpN5dEP9.mjs';
 import user from '../chunks/user_CZuksunW.mjs';
 import { B as BASE_URL } from '../chunks/apliInstance_C-EF-ImI.mjs';
 export { renderers } from '../renderers.mjs';

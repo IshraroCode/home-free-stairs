@@ -15,7 +15,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const hasExternalScripts = false;
 
 export default defineConfig({
-  output: "server", // ✅ SSR mode
+  output: "server"||"static", // ✅ SSR mode
   
   adapter: vercel({
     // Vercel serverless functions
