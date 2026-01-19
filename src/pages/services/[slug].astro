@@ -6,7 +6,16 @@ import ConactSection from "~/components/HomePage/ConactSection.astro";
 import { BASE_URL } from "~/utils/apliInstance";
 import PageLayout from "~/layouts/PageLayout.astro";
 
-export const prerender = false; // ✅ SSR ENABLED
+export async function getStaticPaths() {
+  const res = await fetch(`${BASE_URL}/items/Services?fields=slug`);
+  const data = await res.json();
+
+  return (data?.data || []).map((item) => ({
+    params: { slug: item.slug },
+  }));
+}
+
+
 
 const { slug } = Astro.params;
 
@@ -67,8 +76,6 @@ try {
 } catch (err) {
   console.warn("Directus API failed, fallback used", err);
 }
-
-
 ---
 
 <PageLayout>
