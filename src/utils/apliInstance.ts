@@ -1,4 +1,5 @@
- export const BASE_URL = 'https://64ps06tv-8055.inc1.devtunnels.ms'; // Add your API base URL here
+//  export const BASE_URL = 'https://64ps06tv-8055.inc1.devtunnels.ms'; // Add your API base URL here
+ export const BASE_URL = 'http://0.0.0.0:8055/'; // Add your API base URL here
 
 // GET request
 export const getApi = async (url) => {
