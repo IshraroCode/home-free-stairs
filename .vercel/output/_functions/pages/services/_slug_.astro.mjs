@@ -1,9 +1,9 @@
 import { e as createAstro, c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead, b as addAttribute } from '../../chunks/astro/server_Bc-coSIJ.mjs';
 import 'piccolore';
-import { $ as $$ServicesAll } from '../../chunks/ServicesAll_DeU6KlLK.mjs';
-import { $ as $$ConactSection } from '../../chunks/ConactSection_WpN5dEP9.mjs';
+import { $ as $$PageLayout } from '../../chunks/PageLayout_DQV407cP.mjs';
+import { $ as $$ServicesAll } from '../../chunks/ServicesAll_B5IAvoS6.mjs';
+import { $ as $$ConactSection } from '../../chunks/ConactSection_CUzn3NDD.mjs';
 import { B as BASE_URL } from '../../chunks/apliInstance_C-EF-ImI.mjs';
-import { $ as $$PageLayout } from '../../chunks/PageLayout_C8mcGRQ9.mjs';
 export { renderers } from '../../renderers.mjs';
 
 const $$Astro = createAstro("https://example.com");
@@ -13,54 +13,59 @@ const $$slug = createComponent(async ($$result, $$props, $$slots) => {
   Astro2.self = $$slug;
   const { slug } = Astro2.params;
   const fallbackService = {
-    title: "Our Service",
+    title: "Our Stairlift Services",
     enter_descriptions: "Professional stairlift services designed for safety, comfort, and reliability.",
-    image: "",
-    points: []
+    image: "/images/service-fallback.png",
+    // 🔴 Local image required
+    points: [
+      "Free in-home assessment",
+      "Expert consultation and guidance",
+      "Professional installation",
+      "Complete safety checks",
+      "Ongoing maintenance and support"
+    ]
   };
   let service = fallbackService;
   let AllserviceData = [];
   try {
-    const [serviceRes, allServiceRes] = await Promise.all([
-      fetch(`${BASE_URL}/items/Services?filter[slug][_eq]=${slug}`),
-      fetch(`${BASE_URL}/items/Services`)
-    ]);
-    if (serviceRes.ok) {
-      const serviceJson = await serviceRes.json();
-      const item = serviceJson?.data?.[0];
-      if (item) {
-        const imgMatch = item?.veribage_list?.match(
-          /<img[^>]+src="([^">]+)"/
-        );
-        const image = imgMatch?.[1] || "";
-        const points = item?.veribage_list?.match(/&bull;([^<]+)/g)?.map((p) => p.replace("&bull;", "").trim()) || [];
-        service = {
-          title: item?.title ?? fallbackService.title,
-          enter_descriptions: item?.enter_descriptions ?? fallbackService.enter_descriptions,
-          image,
-          points
-        };
+    if (slug) {
+      const serviceURL = `${BASE_URL}/items/Services?filter[slug][_eq]=${slug}`;
+      const allServiceURL = `${BASE_URL}/items/Services`;
+      const [serviceRes, allServiceRes] = await Promise.allSettled([
+        fetch(serviceURL),
+        fetch(allServiceURL)
+      ]);
+      if (serviceRes.status === "fulfilled" && serviceRes.value.ok) {
+        const serviceJson = await serviceRes.value.json();
+        const item = serviceJson?.data?.[0];
+        if (item) {
+          const imgMatch = item?.veribage_list?.match(
+            /<img[^>]+src="([^">]+)"/
+          );
+          const points = item?.veribage_list?.match(/&bull;([^<]+)/g)?.map((p) => p.replace("&bull;", "").trim()) || [];
+          service = {
+            title: item?.title || fallbackService.title,
+            enter_descriptions: item?.enter_descriptions || fallbackService.enter_descriptions,
+            image: imgMatch?.[1] || fallbackService.image,
+            points: points.length ? points : fallbackService.points
+          };
+        }
+      }
+      if (allServiceRes.status === "fulfilled" && allServiceRes.value.ok) {
+        const allJson = await allServiceRes.value.json();
+        AllserviceData = allJson?.data || [];
       }
     }
-    if (allServiceRes.ok) {
-      const allJson = await allServiceRes.json();
-      AllserviceData = allJson?.data || [];
-    }
-  } catch (err) {
-    console.warn("Directus API failed, fallback used", err);
+  } catch (error) {
+    console.error("SSR Directus fetch failed \u2014 fallback used", error);
   }
-  return renderTemplate`${renderComponent($$result, "PageLayout", $$PageLayout, {}, { "default": async ($$result2) => renderTemplate` ${maybeRenderHead()}<section class="py-20 px-4 sm:px-8 lg:px-16 mt-0 sm:mt-5 lg:mt-14"> <div class="max-w-7xl mx-auto"> <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 items-center"> <!-- IMAGE --> ${service.image && renderTemplate`<div class="flex justify-center lg:justify-start"> <div class="w-full max-w-[672px] aspect-[672/825] overflow-hidden"> <img${addAttribute(service.image, "src")}${addAttribute(service.title, "alt")} class="w-full h-full object-cover" loading="lazy"> </div> </div>`} <!-- CONTENT --> <div class="flex flex-col max-w-xl"> <h1 class="text-3xl sm:text-4xl lg:text-5xl font-semibold leading-tight mb-4"> ${service.title} </h1> <p class="text-gray-600 text-base sm:text-lg mb-6"> ${service.enter_descriptions} </p> ${service.points.length > 0 && renderTemplate`<ul class="space-y-4 mb-8"> ${service.points.map((point) => renderTemplate`<li class="flex items-start gap-3"> <span class="mt-2 h-2 w-2 rounded-full bg-secondary flex-shrink-0"></span> <span class="text-gray-700 leading-relaxed"> ${point} </span> </li>`)} </ul>`} <!-- CTA BUTTONS --> <div class="flex flex-col sm:flex-col gap-4 mt-4 w-full max-w-[581px]"> <a href="/assessment" class="bg-secondary text-white text-center py-3 px-6 rounded-md font-medium hover:opacity-90 transition">
+  return renderTemplate`${renderComponent($$result, "PageLayout", $$PageLayout, {}, { "default": async ($$result2) => renderTemplate`  ${maybeRenderHead()}<section class="py-20 px-4 sm:px-8 lg:px-16 mt-0 sm:mt-5 lg:mt-14"> <div class="max-w-7xl mx-auto"> <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center"> <!-- IMAGE --> <div class="flex justify-center lg:justify-start"> <div class="w-full max-w-[672px] aspect-[672/825] overflow-hidden"> <img${addAttribute(service.image, "src")}${addAttribute(service.title, "alt")} class="w-full h-full object-cover" loading="lazy"> </div> </div> <!-- CONTENT --> <div class="flex flex-col max-w-xl"> <h1 class="text-3xl sm:text-4xl lg:text-5xl font-semibold mb-4"> ${service.title} </h1> <p class="text-gray-600 text-base sm:text-lg mb-6"> ${service.enter_descriptions} </p> ${service.points?.length > 0 && renderTemplate`<ul class="space-y-4 mb-8"> ${service.points.map((point) => renderTemplate`<li class="flex items-start gap-3"> <span class="mt-2 h-2 w-2 rounded-full bg-secondary"></span> <span class="text-gray-700 leading-relaxed"> ${point} </span> </li>`)} </ul>`} <!-- CTA --> <div class="flex flex-col gap-4 mt-4 max-w-[580px]"> <a href="/assessment" class="bg-secondary text-white text-center py-3 px-6 rounded-md font-medium hover:opacity-90 transition">
 Schedule Your Assessment
 </a> <button class="border border-secondary text-secondary py-3 px-6 rounded-md font-medium hover:bg-secondary hover:text-white transition">
 Request a Call Back
-</button> </div> </div> </div> </div> </section>  <div class="max-w-7xl mx-auto"> <h2 class="
-          text-3xl sm:text-4xl
-          font-bold text-secondary
-          
-          text-center lg:text-left
-        ">
+</button> </div> </div> </div> </div> </section>  <section class="max-w-7xl mx-auto px-4 sm:px-8 lg:px-16"> <h2 class="text-3xl sm:text-4xl font-bold text-secondary mb-8">
 Our All Services
-</h2> ${renderComponent($$result2, "ServicesAll", $$ServicesAll, { "data": AllserviceData })} </div>  ${renderComponent($$result2, "ConactSection", $$ConactSection, {})} ` })}`;
+</h2> ${renderComponent($$result2, "ServicesAll", $$ServicesAll, { "data": AllserviceData })} </section>  ${renderComponent($$result2, "ConactSection", $$ConactSection, {})} ` })}`;
 }, "/home/ocode-2023/FrontendHFS/src/pages/services/[slug].astro", void 0);
 
 const $$file = "/home/ocode-2023/FrontendHFS/src/pages/services/[slug].astro";

@@ -1,6 +1,6 @@
 import { e as createAstro, c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from './astro/server_Bc-coSIJ.mjs';
 import 'piccolore';
-import { a as $$WidgetWrapper } from './PageLayout_C8mcGRQ9.mjs';
+import { a as $$WidgetWrapper } from './PageLayout_DQV407cP.mjs';
 
 const $$Astro = createAstro("https://example.com");
 const $$OurServices = createComponent(async ($$result, $$props, $$slots) => {
