@@ -35,11 +35,11 @@ const whenExternalScripts = (
     : [];
 
 export default defineConfig({
-  output: "server",
+  output: "static",
 
-  adapter: node({
-    mode: "standalone",
-  }),
+  // adapter: node({
+  //   mode: "standalone",
+  // }),
 
   integrations: [
     tailwind({ applyBaseStyles: false }),
