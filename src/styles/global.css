@@ -15,7 +15,7 @@ body {
 
 /* Paragraphs */
 :where(p) {
-  font-family: 'Qurova', ui-sans-serif, system-ui;
+  font-family: 'Outfit', ui-sans-serif, system-ui;
   font-weight: 400;
 }
 
@@ -24,6 +24,7 @@ body {
   font-family: 'Qurova', ui-sans-serif, system-ui;
   font-weight: 400;
 }
+
 :root {
   /* Brand Colors */
   --aw-color-primary: #C89945;
@@ -36,7 +37,8 @@ body {
   --aw-color-text-default: #1f2937; /* gray-800 */
   --aw-color-text-muted: #6b7280;   /* gray-500 */
 }
-.material-symbols-rounded{
+
+.material-symbols-rounded {
   font-family: "Material Symbols Rounded";
   font-weight: normal;
   font-style: normal;
