@@ -16,6 +16,10 @@ import {
   responsiveTablesRehypePlugin,
   lazyImagesRehypePlugin,
 } from "./src/utils/frontmatter";
+import node from "@astrojs/node";
+
+
+
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -32,7 +36,10 @@ const whenExternalScripts = (
 
 export default defineConfig({
   output: "server",
-  adapter: vercel({}),  // ✅ Correct for Vercel
+
+  adapter: node({
+    mode: "standalone",
+  }),
 
   integrations: [
     tailwind({ applyBaseStyles: false }),
