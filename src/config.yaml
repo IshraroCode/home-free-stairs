@@ -1,6 +1,6 @@
 site:
   name: Home Free Stairs
-  site: 'https://example.com'
+  site: 'https://deploy-preview-23--home-free-stairs-oc.netlify.app/'
   base: '/'
   trailingSlash: false
 

@@ -37,15 +37,16 @@ let service = fallbackService;
 let AllserviceData = [];
 
 try {
-  const [serviceRes, allServiceRes] = await Promise.all([
-    fetch(`${BASE_URL}/items/Services?filter[slug][_eq]=${slug}`),
-    fetch(`${BASE_URL}/items/Services`)
-  ]);
+
+  const serviceRes = await fetch(`${BASE_URL}/items/Services?filter[slug][_eq]=${slug}&fields[]=*
+&fields[]=related_services.*`);
 
   if (serviceRes.ok) {
     const serviceJson = await serviceRes.json();
+    
     const item = serviceJson?.data?.[0];
-
+    AllserviceData = item?.related_services || [];
+   
     if (item) {
       /* Extract image from HTML */
       const imgMatch = item?.veribage_list?.match(
@@ -69,10 +70,7 @@ try {
     }
   }
 
-  if (allServiceRes.ok) {
-    const allJson = await allServiceRes.json();
-    AllserviceData = allJson?.data || [];
-  }
+
 } catch (err) {
   console.warn("Directus API failed, fallback used", err);
 }
@@ -149,7 +147,7 @@ try {
   
 
     <!-- ALL SERVICES -->
-    <div class="max-w-7xl mx-auto">
+{  AllserviceData  &&  <div class="max-w-7xl mx-auto">
 
       <h2
         class="
@@ -159,12 +157,12 @@ try {
           text-center lg:text-left
         "
       >
-        Our All Services
+        Our Related Services
       </h2>
   
       <ServicesAll data={AllserviceData} />
   
-    </div>
+    </div>}
 
     <!-- CONTACT -->
     <ConactSection />

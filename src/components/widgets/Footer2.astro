@@ -1,4 +1,5 @@
 ---
+import { BASE_URL } from "~/utils/apliInstance";
 import WidgetWrapper from "../ui/WidgetWrapper.astro";
 import Logo from '~/components/Logo.astro';
 
@@ -8,6 +9,56 @@ const {
   isDark = true,
   classes = {},
 } = Astro.props;
+const fallbackdata = [
+  {
+    id: 2,
+    title: "Home Stairlift Assessment",
+    slug: "home-stairlift-assessment",
+    icon: "home",
+  },
+  {
+    id: 3,
+    title: "Stairlift Consultation",
+    slug: "stairlift-consultation",
+    icon: "mark_unread_chat_alt",
+  },
+  {
+    id: 4,
+    title: "Professional Stairlift Installation",
+    slug: "professional-stairlift-installation",
+    icon: "settings",
+  },
+  {
+    id: 5,
+    title: "Safety Checks & User Guidance",
+    slug: "safety-checks-and-user-guidance",
+    icon: "safety_check",
+  },
+  {
+    id: 6,
+    title: "Repair & Maintenance Services",
+    slug: "repair-and-maintenance-services",
+    icon: "tire_repair",
+  },
+  {
+    id: 7,
+    title: "Stairlift Replacement & Upgrades",
+    slug: "stairlift-replacement-and-upgrades",
+    icon: "find_replace",
+  },
+];
+
+let pageData =fallbackdata
+try {
+  const res = await fetch(`${BASE_URL}/items/Services`);
+  if (res.ok) {
+    const apiData = await res.json();
+    pageData = apiData?.data ?? fallbackdata;
+  }
+} catch (error) {
+  console.warn("Directus About API failed, using fallback data");
+}
+
 ---
 
 <WidgetWrapper
@@ -49,23 +100,35 @@ const {
           Service
         </h4>
         <ul class="text-lg md:text-xl lg:text-[24px]  space-y-3 text-gray-800 ">
-          <li>Stairlift Assessment</li>
-          <li>Stairlift Consultation</li>
-          <li>Stairlift Installation</li>
-          <li>User Guidance</li>
+          {pageData.map((service:any) => (
+          <li>
+               <a  href={`/services/${service?.slug}`} class="hover:underline">{service.title}</a>
+          </li>
+          ))}
+      
         </ul>
       </div>
 
       <!-- LEGALS -->
       <div>
-        <h4 class="text-xl md:text-2xl lg:text-3xl font-bold  tracking-wider text-gray-400 uppercase mb-4">
+        <h4 class="text-xl md:text-2xl lg:text-3xl font-bold tracking-wider text-gray-400 uppercase mb-4">
           Legals
         </h4>
-        <ul class="text-lg md:text-xl lg:text-[24px]     space-y-3 text-gray-800 ">
-          <li>Privacy Policy</li>
-          <a href="/terms-and-conditions">Terms & Conditions</a>
+      
+        <ul class="text-lg md:text-xl lg:text-[24px] space-y-3 text-gray-800">
+          <li>
+            <a href="/privacy-and-policy" class="hover:underline">
+              Privacy Policy
+            </a>
+          </li>
+          <li>
+            <a href="/terms-and-conditions" class="hover:underline">
+              Terms & Conditions
+            </a>
+          </li>
         </ul>
       </div>
+      
 
     </div>
 

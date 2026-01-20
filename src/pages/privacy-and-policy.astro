@@ -1,0 +1,62 @@
+---
+import AppLayout from "~/layouts/PageLayout.astro";
+import { BASE_URL } from "~/utils/apliInstance";
+
+const fallbackData = {
+  id: "65b61c24-f129-4ff8-8ffe-6fd8d69f466b",
+  heading: "Privacy Policy",
+  sub_heading: "This policy explains how we collect, use, and protect your personal information.",
+  privacy_and_ploicy: `
+    <p>Welcome to Home Free Stairs. We value your privacy and are committed to protecting your personal information. This Privacy Policy explains how we collect, use, disclose, and protect your information when you use our website and services.</p>
+    <p><strong>Information We Collect:</strong> We may collect personal information such as name, email, phone number, address, and booking details. We may also collect usage information like IP address, browser type, pages visited, and device information.</p>
+    <p><strong>How We Use Your Information:</strong> We use your information to process service requests, communicate appointment updates, provide customer support, improve our services, and send promotional messages (only if you opt-in).</p>
+    <p><strong>How We Share Your Information:</strong> We do not sell your personal data. We may share information with service providers for booking & installation or with legal authorities if required by law, and only with your consent for other purposes.</p>
+    <p><strong>Cookies & Tracking:</strong> We use cookies to improve website performance and user experience. You can disable cookies in your browser settings, but some features may not work properly.</p>
+    <p><strong>Security:</strong> We take reasonable measures to protect your data, including secure storage and limited access. However, no online service is 100% secure.</p>
+    <p><strong>Your Rights:</strong> You have the right to access, update, or delete your data, and opt-out of marketing communications.</p>
+    <p><strong>Changes to This Policy:</strong> We may update this policy at any time, and any changes will be posted on this page.</p>
+    <p><strong>Contact Us:</strong> For any questions, contact us at info@legacycontracting.com.</p>
+  `
+}
+
+
+let pageData = fallbackData;
+
+try {
+  const res = await fetch(`${BASE_URL}/items/privacy_and_policy`);
+  if (res.ok) {
+    const apiData = await res.json();
+    pageData = apiData?.data?.[0] ?? fallbackData;
+  } else {
+    console.warn('API request failed, using fallback data');
+  }
+} catch (error) {
+  console.warn('Directus API failed, using fallback data', error);
+}
+
+const title = pageData.heading;
+const subtitle = pageData.sub_heading;
+const content = pageData.privacy_and_ploicy;
+const metadata = { title: pageData.heading };
+---
+
+<AppLayout>
+  <section class="text-center py-12 px-12 sm:py-16 lg:py-20  sm:mt-10">
+    
+    <!-- Title -->
+    <h1 class="font-semibold text-gray-900 text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-tight break-words mt-5">
+      {title}
+    </h1>
+
+    <!-- Subtitle -->
+    <p class="mt-4 text-gray-600 text-sm sm:text-base md:text-lg max-w-3xl mx-auto leading-relaxed break-words">
+      {subtitle}
+    </p>
+
+    <!-- Content -->
+    <div class="mt-10 sm:mt-12 space-y-6 sm:space-y-8 text-gray-700 text-sm sm:text-base md:text-lg leading-relaxed max-w-4xl mx-auto break-words whitespace-normal overflow-wrap-anywhere">
+      <p set:html={content}></p>
+    </div>
+
+  </section>
+</AppLayout>
