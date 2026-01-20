@@ -8,12 +8,12 @@ metadata:
   title:
     default: Home Free Stairs
     template: '%s'
-  description: ''
+  description: 'Expert stairlift services designed around your home and your needs.'
   openGraph:
-  images:
-    - url: 'https://example.com/assets/images/default.png'
-      width: 1200
-      height: 628
+    images:
+      - url: '~/assets/images/default.png'
+        width: 1200
+        height: 628
 
 i18n:
   language: en

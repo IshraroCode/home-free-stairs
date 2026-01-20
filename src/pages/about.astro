@@ -4,10 +4,21 @@ import OurServices from '~/components/HomePage/OurServices.astro';
 import Layout from '~/layouts/PageLayout.astro';
 import aboutImage from '~/assets/images/aboutSection.png';
 import { BASE_URL } from '~/utils/apliInstance';
+import Header from '~/components/widgets/Header.astro';
 
 /* ================= META ================= */
 const metadata = {
   title: 'About us',
+  description:
+    'Expert home stairlift services focused on safety, comfort, and reliable support.',
+  openGraph: {
+    images: [
+      {
+        url: 'https://64ps06tv-8055.inc1.devtunnels.ms/assets/88503ead-0032-4a58-8ed5-5592f5531ad8',
+        alt: 'About Us Image',
+      },
+    ],
+  },
 };
 
 /* ================= FALLBACK DATA ================= */
@@ -84,7 +95,8 @@ const servicesData = {
 };
 ---
 
-<Layout metadata={metadata}>
+<Layout metadata={metadata} headerText="">
+ 
   <!-- ================= HERO SECTION ================= -->
   <section class="relative bg-secondary text-white h-[532px]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
