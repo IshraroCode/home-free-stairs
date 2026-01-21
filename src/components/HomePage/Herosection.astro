@@ -1,115 +1,125 @@
 ---
 import heroImage from '~/assets/images/hero-image.png';
-import heroBackgournd  from '~/assets/images/Homepage2.png';
+import heroBackgournd from '~/assets/images/Homepage2.png';
 import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
+import { BASE_URL } from '~/utils/apliInstance';
 
 const {
-  heroData,
+  heroData = {},
   id,
   isDark = false,
-  sectionBgClass='',
+  sectionBgClass = '',
   classes = {},
-  bg = await Astro.slots.render('bg'),
 } = Astro.props;
-
 ---
 
-<section   class="w-full bg-cover bg-center bg-no-repeat"
-style={`background-image: url(${heroBackgournd.src})`}>
-<WidgetWrapper
-  id={id}
-  isDark={isDark}
-  containerClass={` px-0
-    sm:px-0
-    md:px-6 ${classes?.container ?? ''}`}
-  
-
+<section
+  class="w-full bg-cover bg-center bg-no-repeat"
+  style={
+    heroBackgournd?.src
+      ? `background-image: url(${heroBackgournd.src})`
+      : heroData?.hero_image
+        ? `background-image: url(${BASE_URL}/assets/${heroData.hero_image})`
+        : ""
+  }
 >
-  <div class="relative min-h-[70vh] grid lg:grid-cols-[3fr_2fr]">
+  <WidgetWrapper
+    id={id}
+    isDark={isDark}
+    containerClass={`px-0 sm:px-0 md:px-6 ${classes?.container ?? ''}`}
+  >
+    <div class="relative min-h-[70vh] grid lg:grid-cols-[3fr_2fr]">
 
-    <!-- Background Image (Mobile / Tablet) -->
-    <div class="absolute inset-0 lg:hidden">
-      <img
-        src={heroImage.src}
-        alt="Stairlift service"
-        class="w-full h-full object-cover"
-      />
-      <div class="absolute inset-0 bg-black/10"></div>
-    </div>
-
-    <!-- LEFT CONTENT -->
-    <div
-      class="
-        relative z-10
-        flex items-center
-        px-5 sm:px-10 
-        py-20
-        text-white lg:text-gray-900
-        bg-transparent lg:bg-white
-      "
-    >
-      <div class="max-w-2xl">
-
-        <span
-          class="
-            text-sm font-semibold
-            flex items-center gap-2
-            mb-4
-            text-gray-200 lg:text-gray-500
-          "
-        >
-          ⚙ Professional Services
-        </span>
-
-        <h1 class=" text-4xl md:text-5xl lg:text-6xl leading-tight mb-4">
-        {heroData.Title}<br />
-         
-        </h1>
-
-        <p
-          class="
-            text-base sm:text-lg
-            mb-8
-            text-gray-200 lg:text-gray-600
-          "
-        >
-          {heroData.sub_title}
-        </p>
-
-        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-          <a
-            href="/contact"
-            class="
-            bg-btn 
-              text-white
-              px-6 py-3
-              rounded-full
-              
-              transition
-              hover:opacity-90
-            "
-          >
-            Book Now
-          </a>
-
-          <a
-            href="/assessment"
-            class="
-              font-medium underline
-              text-white lg:text-blue-950
-              hover:opacity-80
-            "
-          >
-            Schedule a Free Consultation
-          </a>
+      <!-- Background Image (Mobile / Tablet) -->
+      {heroImage?.src && (
+        <div class="absolute inset-0 lg:hidden">
+          <img
+             src={heroImage.src}
+            alt="Stairlift service"
+            class="w-full h-full object-cover"
+          />
+          <div class="absolute inset-0 bg-black/10"></div>
         </div>
+      )}
 
+      <!-- LEFT CONTENT -->
+      <div
+        class="
+          relative z-10
+          flex items-center
+          px-5 sm:px-10
+          py-20
+          text-white lg:text-gray-900
+          bg-transparent lg:bg-white
+        "
+      >
+        <div class="max-w-2xl">
+
+          <!-- Tag line -->
+          {heroData?.tag && (
+            <span
+              class="
+                text-sm font-semibold
+                flex items-center gap-2
+                mb-4
+                text-gray-200 lg:text-gray-500
+              "
+            >
+              ⚙ {heroData.tag}
+            </span>
+          )}
+
+          <!-- Title -->
+          {heroData?.Title && (
+            <h1 class="text-4xl md:text-5xl lg:text-6xl leading-tight mb-4">
+              {heroData.Title}
+            </h1>
+          )}
+
+          <!-- Subtitle -->
+          {heroData?.sub_title && (
+            <p
+              class="
+                text-base sm:text-lg
+                mb-8
+                text-gray-200 lg:text-gray-600
+              "
+            >
+              {heroData.sub_title}
+            </p>
+          )}
+
+          <!-- Buttons -->
+          <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+            <a
+              href="/contact"
+              class="
+                bg-btn
+                text-white
+                px-6 py-3
+                rounded-full
+                transition
+                hover:opacity-90
+              "
+            >
+              Book Now
+            </a>
+
+            <a
+              href="/assessment"
+              class="
+                font-medium underline
+                text-white lg:text-blue-950
+                hover:opacity-80
+              "
+            >
+              Schedule a Free Consultation
+            </a>
+          </div>
+
+        </div>
       </div>
+
     </div>
-
- 
-
-  </div>
-</WidgetWrapper>
+  </WidgetWrapper>
 </section>
-
