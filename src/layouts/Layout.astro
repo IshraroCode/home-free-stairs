@@ -13,10 +13,11 @@ import Favicons from '~/components/Favicons.astro';
 import favIcon from '~/assets/favicons/favicon.ico';
 
 export interface Props {
-  metadata?: MetaDataType;
+  metadata?: any;
 }
 
 const { metadata = {} } = Astro.props;
+
 ---
 
 <!doctype html>
@@ -30,6 +31,8 @@ const { metadata = {} } = Astro.props;
       }
     </style>
 <link rel="shortcut icon" href={favIcon} />
+
+  <meta property="og:image" content={metadata.ogImage} />
 
       <!-- <Favicons /> -->
     <CommonMeta />

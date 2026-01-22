@@ -4,21 +4,35 @@ import Header from '~/components/widgets/Header.astro';
 import Footer2 from '~/components/widgets/Footer2.astro';
 import '~/styles/global.css';
 import type { MetaData } from '~/types';
-import { headerData } from '~/navigation';
+
+import { BASE_URL } from '~/utils/apliInstance';
+import { getPermalink } from '~/utils/permalinks';
 
 export interface Props {
-  metadata?: MetaData;
+  metadata?:any;
 }
 export interface Props {
   headerText?: string;
 }
 
 const { metadata ,headerText} = Astro.props;
+let globalData = [];
+try {
+  const res = await fetch(`${BASE_URL}/items/globals`);
+  if (res.ok) {
+    const apiData = await res.json();
+    globalData = apiData?.data
+  }
+} catch (error) {
+  console.warn("Directus About API failed, using fallback data");
+}
+
+
 ---
 
 <Layout metadata={metadata}>
   <slot name="header">
-    <Header {...headerData} isSticky showRssFeed showToggleTheme  headerText={headerText}/>
+    <Header isSticky showRssFeed showToggleTheme  globalData={globalData}  headerText={headerText}/>
   </slot>
 
   <main>
@@ -26,6 +40,6 @@ const { metadata ,headerText} = Astro.props;
   </main>
 
   <slot name="footer">
-    <Footer2 />
+    <Footer2  globalData={globalData}/>
   </slot>
 </Layout>

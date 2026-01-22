@@ -8,17 +8,16 @@ import { BASE_URL } from '~/utils/apliInstance';
 /* =====================
    SEO Metadata
 ===================== */
-const metadata = {
-  title: 'Our Services – Expert Stairlift Solutions',
-  description:
-    'Explore our range of stairlift services, including home assessments, installation, and safety evaluations to ensure safe and comfortable mobility at home.',
-};
+let metadata: {
+  title?: string;
+  description?: string;
+} = {};
 
 /* =====================
    Fallback Data
 ===================== */
 const fallbackData = {
-  heading: 'Our Services',
+  heading: 'Our Services88',
   sub_heading:
     'Expert stairlift services to support safe and comfortable movement at home.',
   hero_bg_image:
@@ -31,7 +30,7 @@ const fallbackData = {
 let pageData = fallbackData;
  let AllserviceData = [];
 try {
-  const res = await fetch(`${BASE_URL}/items/Service_Page`);
+  const res = await fetch(`${BASE_URL}/items/Service_Page?fields=*,seo.*`);
   const resAllservice = await fetch(`${BASE_URL}/items/Services`);
 
    
@@ -41,11 +40,20 @@ try {
     const apiDataService= await resAllservice.json();
  
     AllserviceData = apiDataService?.data ?? [];
-    pageData = apiData?.data?.[0] ?? fallbackData;
+    pageData = apiData?.data?.[0] ?? fallbackData; 
+    metadata = {
+      title: pageData?.seo?.meta_title ,
+      description:
+        pageData?.seo?.meta_description ,
+        ogImage: pageData?.seo?.og_image ?`${BASE_URL}/assets/${pageData?.seo?.og_image}`:undefined,
+ 
+    };
+ 
   }
 } catch (error) {
   console.warn('Directus API failed, using fallback data');
 }
+
 ---
 
 <Layout metadata={metadata} headerText="">
@@ -53,20 +61,8 @@ try {
        Hero Section
   ====================== -->
   <Hero
-    tagline={pageData.heading}
-    title={pageData.heading}
-    subtitle={pageData.sub_heading}
-    actions={[
-      {
-        variant: 'primary',
-        text: 'Start Exploring',
-        href: '/',
-      },
-    ]}
-    image={{
-      src: pageData.hero_bg_image,
-      alt: 'Home Stairlift Services',
-    }}
+ heroData={pageData}
+   
   />
 
   <!-- =====================

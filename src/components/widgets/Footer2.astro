@@ -8,6 +8,7 @@ const {
   id,
   isDark = true,
   classes = {},
+  globalData 
 } = Astro.props;
 const fallbackdata = [
   {
@@ -139,7 +140,7 @@ try {
       <div class="flex items-center gap-2">
         <div class="  rounded-md flex items-center justify-center">
           <!-- Icon placeholder -->
-        <Logo />
+        <Logo  globalData={globalData} />
         </div>
         
       </div>
@@ -147,7 +148,7 @@ try {
       <!-- Contact -->
       <div class="text-sm text-gray-900">
         Call now, Toll Free:
-        <span class="font-semibold">+1 (234) 567-890</span>
+        <span class="font-semibold">{globalData?.contact_number}</span>
       </div>
       
 
