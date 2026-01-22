@@ -38,8 +38,7 @@ let AllserviceData = [];
 
 try {
 
-  const serviceRes = await fetch(`${BASE_URL}/items/Services?filter[slug][_eq]=${slug}&fields[]=*
-&fields[]=related_services.*`);
+  const serviceRes = await fetch(`${BASE_URL}/items/Services?filter[slug][_eq]=${slug}&fields[]=*&fields[]=related_services.*`);
 
   if (serviceRes.ok) {
     const serviceJson = await serviceRes.json();

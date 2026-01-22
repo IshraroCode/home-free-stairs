@@ -1,8 +1,12 @@
 ---
 
+import { BASE_URL } from '~/utils/apliInstance';
 import logo from '/public/assets/hfslog.png';
 import logo2 from '/public/assets/hfslog2.png';
-
+ export interface Props {
+  globalData?: any
+ }
+const {globalData} = Astro.props;
 
 ---
 
@@ -14,7 +18,7 @@ import logo2 from '/public/assets/hfslog2.png';
     alt="Light Logo"
   /> -->
   <img
-    src={logo.src}
+    src={globalData?.logo?`${BASE_URL}/assets/${globalData?.logo}`: logo.src}
     class="h-20 md:h-20 w-auto object-contain "
     alt="Dark Logo"
   />

@@ -3,6 +3,7 @@ import Layout from '~/layouts/PageLayout.astro';
 import HeroText from '~/components/widgets/HeroText.astro';
 import ContactUs from '~/components/widgets/Contact.astro';
 import Features2 from '~/components/widgets/Features2.astro';
+import { BASE_URL } from '~/utils/apliInstance';
 
 const metadata = {
   title: 'Contact',
@@ -11,6 +12,16 @@ const contactInfo = {
   email: "info@homefreestairs.com",
   phone: "(555) 123-4567"
 };
+let globalData:any = [];
+try {
+  const res = await fetch(`${BASE_URL}/items/globals`);
+  if (res.ok) {
+    const apiData = await res.json();
+    globalData = apiData?.data
+  }
+} catch (error) {
+  console.warn("Directus About API failed, using fallback data");
+}
 ---
 
 <Layout metadata={metadata}>
@@ -57,7 +68,7 @@ const contactInfo = {
               </div>
               <div class="space-y-1">
                 <p class="text-sm font-medium text-gray-600">E-mail:</p>
-                <p class="text-base font-semibold">{contactInfo.email}</p>
+                <p class="text-base font-semibold">{globalData?.conatact_email}</p>
               </div>
             </div>
             <div class="flex items-center gap-3">
@@ -68,7 +79,7 @@ const contactInfo = {
               </div>
               <div class="space-y-1">
                 <p class="text-sm font-medium text-gray-600">Ph. no:</p>
-                <p class="text-base font-semibold">{contactInfo.phone}</p>
+                <p class="text-base font-semibold">{globalData?.contact_number}</p>
               </div>
             </div>
           </div>
